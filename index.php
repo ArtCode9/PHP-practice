@@ -1,3 +1,4 @@
+<!-- part 1 -->
 <?php
       echo"I love pizza <br>";
       echo"It's really good";
@@ -5,8 +6,21 @@
       /* 
          comment multi line
       */
+?>
+<!-- part 2 -->
+<?php
+      // variable = a reusable container that holds data 
+      //                string, integer, float, boolean
+      $name = "Art Code";
+      $food = "pizza";
+      // display var
+      echo $name;
+      echo "Hello {$name}<br>";
+      echo "You order {$food}";
+
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
