@@ -54,6 +54,5 @@
       // $total = rand();
       // $total = rand(1, 6);
 
-
       echo $total;
 ?>
