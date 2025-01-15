@@ -1,4 +1,5 @@
 <!-- part 1 -->
+
 <?php
       echo"I love pizza <br>";
       echo"It's really good<br>";
@@ -7,6 +8,7 @@
          comment multi line
       */
 ?>
+
 <!-- part 2 -->
 <?php
       // variable = a reusable container that holds data 
@@ -101,8 +103,8 @@
       // + -
       $totalp =  (1 + (2 - 3) * 4) / (5 ** 6);
       echo "{$totalp}<br>"
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
