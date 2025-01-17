@@ -14,14 +14,43 @@
             </form>
             <hr>
             <form action="14_radioButton.php" method="post">
-               <input type="radio" name="credit_card" value="Visa">Visa<br>
-               <input type="radio" name="credit_card" value="Mastercard">Mastercard<br>
-               <input type="radio" name="credit_card" value="American Express">American Express<br>
-               <input type="submit" name="confirm" value="confirm">
+               <input type="radio" name="food_card" value="pizza">Pizza<br>
+               <input type="radio" name="food_card" value="pasta">Pasta<br>
+               <input type="radio" name="food_card" value="soda">Soda<br>
+               <input type="submit" name="pick" value="confirm">
             </form>
+            <hr>
 </body>
 </html>
 <?php
+         //  food section
+         if(isset($_POST["pick"])){
+
+            $food_card = null;
+
+            if(isset($_POST["food_card"])){ // select a value from radio button
+                  $food_card = $_POST["food_card"];// assign value to local variable
+            }
+
+            switch($food_card){
+                   case "pizza":
+                     echo"You select pizza";
+                     break;
+                  case "pasta":
+                     echo"pasta is really good chose";
+                     break;
+                  case "soda":
+                     echo"soda is good with other male";
+                     break;
+                  default:
+                     echo"Please make selection i'am starving";
+            }
+
+         }
+
+
+         //  credit card section
+
          if(isset($_POST["confirm"])){
 
             $credit_card = null;
