@@ -16,17 +16,33 @@
 </body>
 </html>
 <?php
+
+         /* if(isset($_POST["login"])){
+               $username = $_POST["username"]; 
+               $password = $_POST["password"]; 
+               
+               if(empty($username)){
+                  echo"username is missing<br>";
+               }
+               elseif(empty($password)){
+                  echo"password is missing<br>";
+               }
+               else{
+                  echo"Hello {$username}<br>";
+               }
+         } */
+
+////////////////////////////////////////
+         
          foreach($_POST as $key => $value){
                echo"{$key} = {$value} <br>";
          }
-
-
-
+//////////////////////////////////////////
 
          // isset() = returns true if a variable is declared and not null
          // empty() = returns true if a variable is not declared , false , null, ""
 
-         $username = true;
+        /*  $username = true;
          $nickname = "coder";
 
          if(isset($username)){
@@ -40,5 +56,5 @@
          }else{
             echo"This variable is NOT empty";
          }
-
+ */
 ?>
