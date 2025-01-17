@@ -6,7 +6,9 @@
    <title>Check Boxes</title>
 </head>
 <body>
-   
+            <form action="15_checkBoxes.php" method="post">
+                  // 02:21:10
+            </form>
 </body>
 </html>
 <?php
