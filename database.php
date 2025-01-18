@@ -17,7 +17,7 @@
          }
 
 
-      if($conn){
-         echo"You are connected!!";
-      }
+      // if($conn){
+      //    echo"You are connected!!";
+      // }
 ?>
