@@ -1,8 +1,9 @@
 <?php
+      
       include("database.php");
 
-      $username = "Patrick";
-      $password = "rock3";
+      $username = "root";
+      $password = "mypass";
       $hash = password_hash($password, PASSWORD_DEFAULT);
 
 
@@ -10,12 +11,13 @@
               value('Spongebob', 'pineapple1')";
 
    try{
-      mysqli_query($conn, $sql);
+      // mysqli_query($conn, $sql);
+      $pdo = new PDO("mysql:host=localhost;dbname=demodb", $username, $password);
       echo"User is now registered";
    }
-   catch(mysqli_sql_exception){
-         echo"Could not register user";
+   catch(PDOException $e){
+         echo "Could not register user: " . $e->getMessage();
    }
-      mysqli_close($conn);
+//    mysqli_close($conn);
 ?>
  
