@@ -40,11 +40,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add'])) {
     // $conn->query($sql);
     
 
-    //  this doesn't work correctly
-    $stmt = $conn->prepare("INSERT INTO batman (name, nickname, password, phone_number) VALUES ('$name', '$nickname', '$password', '$phone_number')");
-    $stmt->bind_param('$name', '$nickname', '$password', '$phone_number');
+    //  this doesn't work correctly  >>> problem solved with Mr.haghgoo
+    try{
+    $stmt = $conn->prepare("INSERT INTO batman (`name`, `nickname`, `password`, `phone_number`) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param('ssss',$name, $nickname, $password, $phone_number);
+
+    // $stmt->execute([$name, $nickname, $password, $phone_number]);
     $stmt->execute();
     $stmt->close();
+    } catch(Exception $e){
+        echo "Error occurred during db operations: " . $e->getMessage();
+    }
 }
 
 // Remove user
