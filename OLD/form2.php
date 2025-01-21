@@ -34,8 +34,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add'])) {
    //  $email = $_POST['email'];
     $phone_number = $_POST['phone_number'];
 
-    $stmt = $conn->prepare("INSERT INTO batman (name, nickname, password, phone_number) VALUES ($name, $nickname, $password, $phone_number)");
-    $stmt->bind_param("sssss", $name, $nickname, $password, $email, $phone_number);
+    //  this work correctly 
+    // $sql = "INSERT INTO batman (name, nickname, password, phone_number)
+            //  VALUES ('$name', '$nickname', '$password', '$phone_number')";
+    // $conn->query($sql);
+    
+
+    //  this doesn't work correctly
+    $stmt = $conn->prepare("INSERT INTO batman (name, nickname, password, phone_number) VALUES ('$name', '$nickname', '$password', '$phone_number')");
+    $stmt->bind_param('$name', '$nickname', '$password', '$phone_number');
     $stmt->execute();
     $stmt->close();
 }
