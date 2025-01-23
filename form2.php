@@ -62,9 +62,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['remove'])) {
     $stmt->execute();
     $stmt->close();
 }
-
 $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -83,11 +83,13 @@ $conn->close();
     <input type="submit" name="add" value="Add User">
 </form>
 
+
 <h2>Remove User</h2>
 <form method="post">
     User ID: <input type="text" name="id" required><br>
     <input type="submit" name="remove" value="Remove User">
 </form>
+
 
 </body>
 </html>
