@@ -46,5 +46,73 @@
       echo $ages["ghazal"];
       echo"<br>";
       echo $ages[0];
+      echo"<hr>";
+      echo"<hr>";
+
+      // 3=> Multidimensional arrays
+      echo"Multidimensional arrays ::<br>";
+
+      $gamer = array(
+            [
+               "name" => "erfan",
+               "email" => "erfan@gmail.com",
+               "username" => "erfan123"
+            ],
+            [
+               "name" => "goli",
+               "email" => "goli@gmail.com",
+               "username" => "goli123"
+            ],
+            [
+               "name" => "doe",
+               "email" => "doe@gmail.com",
+               "username" => "doe123"
+            ]
+      );
+      var_dump($gamer);
+      echo"<br>";
+      echo"<hr>";
+      print_r($gamer);
+      echo"<hr>";
+      print_r($gamer[1]);
+      echo"<hr>";
+      print_r($gamer[1]["name"]);
+      echo"<br>";
+      echo $gamer[1]["name"];
+      echo"<hr>";
+
+      echo"set index myself in multidimensional::<br>";
+      $noob = array(
+           "1" => [
+               "name" => "erfan",
+               "email" => "erfan@gmail.com",
+               "username" => "erfan123"
+            ],
+            "2" => [
+               "name" => "goli",
+               "email" => "goli@gmail.com",
+               "username" => "goli123"
+            ],
+            "3" => [
+               "name" => "doe",
+               "email" => "doe@gmail.com",
+               "username" => "doe123"
+            ]
+      );
+      var_dump($noob);
+      echo"<br>";
+      echo"<hr>";
+      print_r($noob);
+      echo"<hr>";
+      print_r($noob[3]);
+      echo"<hr>";
+      print_r($noob[3]["name"]);
+      echo"<br>";
+      echo $noob[3]["name"];
+      echo"<hr>";
+      echo"<p style='color:green;font-size:22px;'> welcome {$noob[3]["name"]}</p><br>";
+      echo"welcome {$noob[3]["name"]}<br>";
+      echo'welcome {$noob[3]["name"]}';
+      echo"<hr>";
 
 ?>
