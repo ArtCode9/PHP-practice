@@ -82,4 +82,5 @@ echo "<hr>";
 $usertoObject = (object) $booker;
 echo"direct convert to object::<br>";
 print_r($usertoObject);
+
 ?>
