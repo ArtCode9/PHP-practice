@@ -114,7 +114,7 @@ $userWar =  (object) array(
 );
 var_dump($userWar);
 echo"<hr>";
-
+// mix object and array in if condition
 if($userWar->ali["role"] == "admin"){
    echo"welcome admin to your panel";
 }else{
