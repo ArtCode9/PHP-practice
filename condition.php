@@ -58,7 +58,7 @@ echo"<br>";
 
 if($users->ali->role == "admin"){
       echo"welcome dear admin";
-}else{
+}else if($users->ali->role == ""){
    echo"Your not admin ";
 }
 
