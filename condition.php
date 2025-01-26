@@ -153,6 +153,8 @@ echo"now convert json to object<br>";
 $jsonToArr = json_decode($arrToJson);
 var_dump($jsonToArr);
 
+// short form >> $users = json_decode(json_encode($user));
+
 // now we use if condition with object style not array
 if($jsonToArr->h1->id == 23567){
    echo"you enter in videogame hobby";
