@@ -58,7 +58,7 @@
       $t3 = $j <=> $p;
       echo $t3;
 
-      echo "<br><hr>";
+      echo "<hr style='border:3px solid yellow'>";
       echo "x" <=> "y";
       echo "<br>";
       echo "y" <=> "x";
@@ -75,7 +75,7 @@
       }else{
             echo'false';
       }
-      echo'<hr>';
+      echo"<hr style='border:3px solid black'>";
 
       // || or operator 
       if($q == 10 or $w == 20 || $e == 11){
@@ -83,7 +83,7 @@
       }else{
             echo'🤯false';
       }
-      echo'<hr>';
+      echo"<hr style='border:3px solid gold'>";
 
       // xor
       if($q == 10 xor $w == 21){
@@ -92,7 +92,7 @@
             echo'🤑false';
       }
 
-      echo'<hr>';
+      echo"<hr style='border:3px solid gold'>";
 
       // !=  
 
@@ -102,7 +102,7 @@
             echo'🤢false';
       }
 
-      echo'<hr>';
+      echo"<hr style='border:3px solid blue'>";
 
       $x_x = array('r' => 'red', 'b' => 'blue', 'g' => 'green');
       $x_x2 = array('r' => 'red', 'b' => 'blue', 'g' => 'green');
@@ -111,24 +111,24 @@
       print_r($x_x);
       echo'<br>';
       print_r($o_p);
-      echo'<hr>';
+      echo"<hr style='border:3px solid lightgreen'>";
 
       // union operator  +
       $o_o = $x_x + $o_p;
       print_r($o_o);
 
-      echo'<hr>';
+      echo"<hr style='border:3px solid black'>";
       // equality operator both array not have equal element
       $y_y = $x_x == $o_p;
       var_dump($y_y);
 
-      echo'<hr>';
-      echo'<hr>';
+      echo"<hr style='border:3px solid green'>";
+      echo"<hr style='border:3px solid green'>";
       // === identity
       var_dump($x_x === $x_x2);
 
-      echo'<hr>';
-      echo'<hr>';
+      echo"<hr style='border:3px solid orange'>";
+      echo"<hr style='border:3px solid orange'>";
       // <> inequality  the behaiver similar to !=
       var_dump($x_x <> $x_x2);
       var_dump($x_x !== $x_x2);
