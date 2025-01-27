@@ -52,4 +52,27 @@
       echo plusX2();
       echo"<br>";
       echo plusX2(2, 6);
+      echo"<hr style='border: 6px solid palegreen'>";
+
+      echo"function on arrays<br>";
+
+      function sumAll(){
+         $args = func_get_args();
+         var_dump($args);
+         echo"<br>";
+         return var_dump(array_sum($args));
+      };
+      sumAll(1,2,3,4,5);
+      echo"<br>";
+      sumAll(13,12,43,41,55,43,23,123,213);
+
+      echo"<hr style='border: 6px solid palegreen'>";
+      
+      // PHP 5.6
+      function sumAll2 (...$args){
+            return array_sum($args);
+      }
+
+      echo sumAll2(4,23,2,3,6,5,454,23,23);
+
 ?>
