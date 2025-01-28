@@ -24,12 +24,18 @@
 <?php
       // get value from form inside html
       
-
-      if(!empty($_GET["age"]) > 18){
-         echo "👾Dear  " . !empty($_GET["Fname"]) . "  your age is = ". $_GET["age"] ." and You can verify<br>";
+      // if(!empty($_REQUEST["Fname"]) && !empty($_REQUEST["age"])){
+      //       echo "Welcome " . $_REQUEST["Fname"]. "<br>";
+      //       echo "You are " . $_REQUEST["age"] . " old";
+      //    } else{
+      //          echo"please fill the form";
+      //    }
+      if($_GET["age"] > 18){
+            print_r($_GET["Fname"]);
+            echo"<br>";
+            echo"welcome ". $_GET["Fname"];
       }else{
-         echo "😈Dear  " . $_GET["Fname"] . "  Your not Adult<br>";
+            echo"Your NOT elder";
       };
-
 
 ?>
