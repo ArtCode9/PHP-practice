@@ -50,6 +50,7 @@ echo"Do all this with anonymous Function Callable<br>";
  };
 
 string('artisa', function($name){
+         echo"🦎🦎🦎🦎🦎🦎";
          print_r($name);
 });
 echo"<hr style='border:2px solid pink'>";
