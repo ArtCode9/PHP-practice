@@ -3,8 +3,8 @@
 <?php
 // Database connection
 $servername = "localhost";
-$username = "root";
-$password = "";
+$username = "artcode";
+$password = "1";
 $dbname = "artdb";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['remove'])) {
     $id = $_POST['id'];
 
-    $stmt = $conn->prepare("DELETE FROM Users WHERE id = ?");
+    $stmt = $conn->prepare("DELETE FROM batman2 WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $stmt->close();

@@ -1,7 +1,7 @@
 <?php 
 $db_server = "localhost";
-$db_user = "root";
-$db_pass = "";
+$db_user = "artcode";
+$db_pass = "1";
 $db_name = "artdb";
 $conn = "";
 
@@ -25,8 +25,14 @@ try{
 <body>
          <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                <h2>Welcome To register Form:</h2>
-               Email:<br>
-               <input type="text" name="email"><br>
+               <label>Name:</label><br>
+               <input type="text" name="name"><br>
+               <label>Nickname:</label><br>
+               <input type="text" name="nickname"><br>
+               <label>Password:</label><br>
+               <input type="password" name="password"><br>
+               <label>Phone Number:</label><br>
+               <input type="text" name="number"><br>
                <input type="submit" name="submit" value="register">               
          </form>
 </body>
@@ -35,16 +41,37 @@ try{
 <?php
       if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-          $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_SPECIAL_CHARS);
+         $name = $_POST["name"];
+         $nickname = $_POST["nickname"];
+         $password = $_POST["password"]; 
+         $number = $_POST["number"];
 
-          if(empty($email)){
-               echo"Please enter your email";
-          }else{
-            $sql = "INSERT INTO axeart (email)
-                     VALUES('$email')";
-            mysqli_query($conn, $sql);
-            echo"You verify email!";
-          }
+      // one way
+      //    $sql = "INSERT INTO batman (`name`, `nickname`, `password`, `phone_number`)
+      //                VALUES('$name', '$nickname', '$password', $number)";
+      
+
+      //      if( $conn->execute_query($sql) == true){
+      //       echo"you verify";
+      //      }else{
+      //       echo"please enter info";
+      //      }
+                
+
+      
+      // second way
+      $sql = "INSERT INTO batman (`name`, `nickname`, `password`, `phone_number`)
+                     VALUES(?, ?, ?, ?)";
+      try{
+         $stmt = $conn->prepare($sql);
+         $stmt->bind_param('ssss', $name, $nickname, $password, $number);
+            
+         $stmt->execute();
+         $stmt->close();   
+      }catch(Exception $e){
+            echo"Error happen" . $e->getMessage();
+      }  
+          
       }
 
       mysqli_close($conn);
