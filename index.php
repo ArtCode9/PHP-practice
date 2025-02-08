@@ -1,5 +1,27 @@
 <?php
          echo"<p>we are play PHP here!</p>";
+
+         echo"<br>";
+         echo"<hr>";
+         
+         $x = 20;
+         $y = 20;
+
+         switch($x){
+            case $x == $y:
+                  echo"x is equal y";
+               break;
+            case $x > $y:
+               echo"x is bigger than y"; 
+               break;
+            case $x < $y:
+               echo"x is smaller than y";
+               break;
+            default:
+               echo"does not matter";
+         }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
