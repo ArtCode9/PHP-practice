@@ -1,6 +1,6 @@
 <?php
 /* 
-Plugin Name: filter-words
+Plugin Name: words-filter
 Plugin URI:  https://example.com
 Description: a simple plugin for filter words in WP content.
 Author: art code

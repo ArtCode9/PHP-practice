@@ -22,20 +22,22 @@ echo"<br>";
 echo PLUGIN_DIR_PATH; 
 echo"<br>";
 echo PLUGIN_URL; 
-
+echo"<br>";
+echo"this is simple plugin coming";
 
 function simple_plugin_activation(){
-         
+   echo "this is simple plugin activation";         
 };
 function simple_plugin_deactivation(){
-         
+   echo "this is simple plugin deactivation";
 };
 register_activation_hook(__FILE__, 'simple_plugin_activation');
 register_deactivation_hook(__FILE__, 'simple_plugin_deactivation');
 
 
 if(is_admin()){
-   include PLUGIN_INC."admin/amenu.php";
+   //  include PLUGIN_INC."admin/amenu.php";
+   include PLUGIN_INC."admin/bmenu.php";
 }else{
    include PLUGIN_INC."user/umenu.php";
 }

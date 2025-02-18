@@ -43,12 +43,12 @@
 
             <div class="links">
                   <p>Already Have Account?</p>
-                  <button class="signInButton">Sign In</button>
+                  <button class="signInButton">Sign--In</button>
             </div>
       </div>
 
       <div class="container" id="signIn">
-            <h1 class="form-title">Sign In</h1>
+            <h1 class="form-title">😀Sign In</h1>
             <form method="post" action="register.php">
               <div class="input-group">
                   <label for="email">Email</label>
