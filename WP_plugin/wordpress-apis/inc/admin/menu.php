@@ -34,6 +34,7 @@ function wp_apis_register_menus(){
          'wp_apis_theme',
          'wp_apis_general_theme'
       );
+   
       //  submenu 3
       add_submenu_page(
          'wp_apis_admin',
@@ -42,6 +43,16 @@ function wp_apis_register_menus(){
          'manage_options',
          'wp_apis_user',
          'wp_apis_users'
+      );
+
+
+         add_submenu_page(
+         'wp_apis_admin',
+         'Batman',
+         'Batman',
+         'manage_options',
+         'wp_apis_batman',
+         'wp_apis_batman2'
       );
 };
 
@@ -133,5 +144,21 @@ function wp_apis_users(){
    include WP_APIS_TPL.'admin/menus/user.php';
 }
 
+   function wp_apis_batman2(){
+
+      if(isset($_POST['call_batman'])){
+
+         if(isset($_POST['batman_car'])){
+            update_option('batman_fly_on', 1);
+            echo"Batman on mission do not disturb";
+         }else{
+            delete_option('batman_fly_on');
+            ecHO"Batman is resting for a while";
+         }
+      }
+
+      $batman_fly = get_option('batman_fly_on' ,0);
+      include WP_APIS_TPL.'admin/menus/user2.php';
+   }
 
 ?>

@@ -21,10 +21,10 @@ register_deactivation_hook(__FILE__, 'wp_apis_plugin_deactivation');
 
 
 function wp_apis_plugin_activation(){
-
+   echo"this is wordpress-apis";
 };
 function wp_apis_plugin_deactivation(){
-
+   echo"this is wordpress-plugin";
 };
 //  after we learn about array we can build option for plugin for users
 
