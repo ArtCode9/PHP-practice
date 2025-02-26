@@ -16,12 +16,12 @@ if (!defined('ABSPATH')) {
 }
 
 // بارگذاری فایل‌های لازم برای reCAPTCHA
-add_action('wp_enqueue_scripts', 'enqueue_recaptcha_scripts');
-function enqueue_recaptcha_scripts() {
-    if (!is_admin()) {
-        wp_enqueue_script('google-recaptcha', 'https://www.google.com/recaptcha/api.js', array(), null, true);
-    }
-}
+// add_action('wp_enqueue_scripts', 'enqueue_recaptcha_scripts');
+// function enqueue_recaptcha_scripts() {
+//     if (!is_admin()) {
+//         wp_enqueue_script('google-recaptcha', 'https://www.google.com/recaptcha/api.js', array(), null, true);
+//     }
+// }
 
 //🚩 ==================================================================
 // ایجاد جدول برای ذخیره تیکت‌ها
@@ -217,7 +217,8 @@ function handle_ticket_submission() {
                 }
             }
 
-            $tracking_code = uniqid('ticket_');
+// doc : uniqid -> generate a time-based identifier  [ uniqid( string $prefix= "", bool $more_entropy = false) ]
+            $tracking_code = uniqid('');
 
             $wpdb->insert($table_name, array(
                 'tracking_code' => $tracking_code,
@@ -282,9 +283,9 @@ function display_tickets_in_admin() {
     echo '<th>الویت</th>';
     echo '<th>وضعیت</th>';
     echo '<th>تاریخ</th>';
+    echo '<th>پیام</th>';
     echo '<th>پشتیبان</th>';
     echo '<th>عملیات</th>';
-    echo '<th>پیام</th>';
     echo '<th>پاسخ</th>';
     echo '</tr>';
     echo '</thead>';

@@ -6,6 +6,7 @@ function wp_apis_price_meta_box_handler($post){
       ?>
          <input type="text" name="wp_apis_post_price" value="<?php echo $post_price; ?>">
       <?php
+      
 };
 
 function wp_apis_add_price_meta_box($post_type, $post){
