@@ -114,6 +114,7 @@ function registration_form_shortcode() {
 add_shortcode('registration_form', 'registration_form_shortcode');
 // ==================================================================
 
+
 // 🚩==================================================================
 
 function handle_registration() {
@@ -146,6 +147,38 @@ function handle_registration() {
 function support_ticket_form_shortcode() {
     ob_start();
     ?>
+    <style>
+            .support-ticket-form {
+                border: none;
+                border-radius: 9px;
+                background-color: lightblue;
+                padding: 17px;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+            }
+            .support-ticket-form input {
+                margin-top: 9px;
+                border: none;
+                border-radius: 9px;
+                padding: 9px;
+                font-size: 16px;
+            }
+            .support-ticket-form textarea {
+                margin: 9px;
+                height: 66px;
+            }
+            .submit-button {
+                border: none;
+                border-radius: 9999px;
+                background-color: tomato;
+                margin-left: 22px;
+            }
+            .fileindex{
+                margin: 0;
+            }
+    </style>
+
     <form class="support-ticket-form" method="POST" enctype="multipart/form-data">
         <input type="text" name="full_name" placeholder="نام و نام خانوادگی" required>
         <input type="email" name="email" placeholder="آدرس ایمیل" required>
@@ -168,8 +201,8 @@ function support_ticket_form_shortcode() {
         </select>
 
         <textarea name="message" placeholder="متن پیام" required></textarea>
-        <input type="file" name="attachment">
-        <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div> <!-- کلید سایت خود را در اینجا وارد کنید -->
+        <input type="file" name="attachment" class="fileindex">
+        <!-- <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div> کلید سایت خود را در اینجا وارد کنید -->
         <input type="submit" name="submit_ticket" class="submit-button" value="ارسال تیکت">
     </form>
 
@@ -397,6 +430,7 @@ function display_ticket_list($tickets) {
     echo '<th>الویت</th>';
     echo '<th>وضعیت</th>';
     echo '<th>تاریخ</th>';
+    echo '<th>پیام</th>';
     echo '<th>پشتیبان</th>';
     echo '<th>عملیات</th>';
     echo '</tr>';
@@ -414,6 +448,7 @@ function display_ticket_list($tickets) {
             echo '<td>' . esc_html($ticket->priority) . '</td>';
             echo '<td>' . esc_html($ticket->status) . '</td>';
             echo '<td>' . esc_html($ticket->created_at) . '</td>';
+            echo '<td>' . esc_html($ticket->message) . '</td>';
             echo '<td>' . esc_html($ticket->support_agent) . '</td>';
             echo '</tr>';
         }
@@ -429,10 +464,30 @@ function display_ticket_list($tickets) {
 add_action('admin_menu', 'add_ticket_menu');
 
 // فرم پیگیری تیکت
+// shortcode = [tracking_form]
 function tracking_form_shortcode() {
     ob_start();
     ?>
-    <div>
+    <style>
+        .box{
+            border-radius: 9px;
+            background-color: lightblue;
+            align-items: center;
+            text-align: center;
+            padding: 9px;
+        }
+        .ticket {
+            background-color: lightblue;
+            border-radius: 9px;
+            padding: 9px;
+            display: flex;
+            flex-direction: column;
+        }
+        .ticket h3 {
+            text-align: center;
+        }
+    </style>
+    <div class="box">
         <h2>پیگیری تیکت</h2>
         <form method="POST">
             <input type="text" name="tracking_code" placeholder="شماره پیگیری" required>
@@ -449,10 +504,12 @@ function tracking_form_shortcode() {
         $ticket = $wpdb->get_row($wpdb->prepare("SELECT * FROM $table_name WHERE tracking_code = %s", $tracking_code));
 
         if ($ticket) {
+            echo '<div class="ticket">';
             echo '<h3>جزئیات تیکت شما</h3>';
             echo '<p><strong>موضوع:</strong> ' . esc_html($ticket->subject) . '</p>';
             echo '<p><strong>وضعیت:</strong> ' . esc_html($ticket->status) . '</p>';
             echo '<p><strong>پاسخ:</strong> ' . esc_html($ticket->response ? $ticket->response : 'پاسخی دریافت نکرده‌اید.') . '</p>';
+            echo '</div>';
         } else {
             echo '<p style="color: red;">تیکتی با این شماره پیگیری پیدا نشد.</p>';
         }
@@ -462,12 +519,14 @@ function tracking_form_shortcode() {
 }
 add_shortcode('tracking_form', 'tracking_form_shortcode');
 
+
 // ایمن‌سازی با اضافه کردن محدودیت برای بارگذاری فایل‌ها
 function secure_file_uploads() {
     // Limit file sizes (in bytes)
     @ini_set('upload_max_filesize', '5M');
 }
 add_action('init', 'secure_file_uploads');
+
 
 // افزودن فیلد برای نشان دادن وضعیت تیکت در فرم
 function add_status_field_in_ticket_form() {
