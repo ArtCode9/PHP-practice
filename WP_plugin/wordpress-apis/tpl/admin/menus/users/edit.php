@@ -13,14 +13,14 @@
          <tr valign="top">
             <th scope="row">Wallet</th>
             <td>
-               <input type="text" name="Wallet" value="<?php echo $wallet ?>">
+               <input type="text" name="wallet" value="<?php echo $wallet ?>">
             </td>
          </tr>
 
          <tr valign="top">
             <th scope="row"></th>
             <td>
-               <input type="submit" name="submit" class="button primary">
+               <input type="submit" name="saveUserInfo" class="button primary">
             </td>
          </tr>
       </table>

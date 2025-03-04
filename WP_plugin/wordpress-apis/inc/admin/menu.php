@@ -183,17 +183,44 @@ function wp_apis_users_page(){
    if(isset($_GET['action']) && $_GET['action'] == 'edit')
    {
       $userID = intval($_GET['id']);
+      
+      if(isset($_POST['saveUserInfo'])){
+         
+         $mobile = $_POST['mobile'];
+         $wallet = $_POST['wallet'];
+         
+         if(!empty($mobile)){  // 👈here we check for mobile is exist or not
+            update_user_meta($userID ,'mobile', $mobile);
+         }
+
+         if(!empty($wallet)){
+            update_user_meta($userID,'wallet', $wallet);
+         }
+         
+         
+      }
+      
       // 👇 this two var get mobile and wallet data for fill input value in edit.php
       $mobile = get_user_meta($userID, 'mobile', true);
       $wallet = get_user_meta($userID, 'wallet', true);
 
       include WP_APIS_TPL . 'admin/menus/users/edit.php';
       return;
+
+
+   }
+
+   if(isset($_GET['action']) && $_GET['action'] == 'removeMobileAndWallet'){
+      $userID = intval($_GET['id']);
+      delete_user_meta($userID, 'mobile');
+      delete_user_meta($userID, 'wallet');
+
    }
 
    $users = $wpdb->get_results("SELECT ID, user_email, display_name FROM {$wpdb->users }");
    // after we get users data from database we can use all this in users.php we include below👇
       
    include WP_APIS_TPL . 'admin/menus/users/users.php';                                     // here👈
+
 }
 ?>
