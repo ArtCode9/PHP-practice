@@ -180,9 +180,20 @@ function wp_apis_users_page(){
    // here we want to get data from main database of wordpress
    global $wpdb;
 
+   if(isset($_GET['action']) && $_GET['action'] == 'edit')
+   {
+      $userID = intval($_GET['id']);
+      // 👇 this two var get mobile and wallet data for fill input value in edit.php
+      $mobile = get_user_meta($userID, 'mobile', true);
+      $wallet = get_user_meta($userID, 'wallet', true);
+
+      include WP_APIS_TPL . 'admin/menus/users/edit.php';
+      return;
+   }
+
    $users = $wpdb->get_results("SELECT ID, user_email, display_name FROM {$wpdb->users }");
    // after we get users data from database we can use all this in users.php we include below👇
       
-   include WP_APIS_TPL . 'admin/menus/users.php';                                     // here👈
+   include WP_APIS_TPL . 'admin/menus/users/users.php';                                     // here👈
 }
 ?>
