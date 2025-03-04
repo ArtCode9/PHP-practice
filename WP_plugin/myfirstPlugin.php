@@ -11,7 +11,7 @@ Domain Path: /languages/
 Version: 1.0.0
 */
 
-// here we do an execution on site
+//   here we do an execution on site
 
 /* function showname ($nameo){
    echo"My name is {$nameo}";
