@@ -45,6 +45,15 @@ function wp_apis_register_menus(){
          'wp_apis_db',
          'wp_apis_db'
       );
+
+      add_submenu_page(
+         'wp_apis_admin',
+         'کاربران',
+         'کاربران',
+         'manage_options',
+         'wp_apis_users',
+         'wp_apis_users_page'
+      );
 };
 
 // we use this function inside menu  add_menu_page()  function above
@@ -157,7 +166,7 @@ function wp_apis_db(){
       include WP_APIS_TPL . 'admin/menus/add.php';
 
    }else{
-
+      // here we get data from database 👇
       $samples = $wpdb->get_results("SELECT * FROM batman_t");
       
       include WP_APIS_TPL . 'admin/menus/database.php';
@@ -166,4 +175,14 @@ function wp_apis_db(){
    
 };
 
+function wp_apis_users_page(){
+
+   // here we want to get data from main database of wordpress
+   global $wpdb;
+
+   $users = $wpdb->get_results("SELECT ID, user_email, display_name FROM {$wpdb->users }");
+   // after we get users data from database we can use all this in users.php we include below👇
+      
+   include WP_APIS_TPL . 'admin/menus/users.php';                                     // here👈
+}
 ?>
