@@ -20,39 +20,30 @@ function wp_apis_register_menus(){
       add_submenu_page(
          'wp_apis_admin',
          'Public',
-         'public',
+         'user',
          'manage_options',
          'wp_apis_general',
          'wp_apis_general_page'
       );
-      //  submenu 2
+
+      // submenu 2
       add_submenu_page(
          'wp_apis_admin',
-         'Theme',
-         'Theme',
+         'form',
+         'form login',
          'manage_options',
-         'wp_apis_theme',
-         'wp_apis_general_theme'
+         'wp_apis_form',
+         'wp_apis_form'
       );
-   
-      //  submenu 3
+
+      // submenu 3
       add_submenu_page(
          'wp_apis_admin',
-         'User',
-         'User',
+         'Data wpdb',
+         'Database Sql',
          'manage_options',
-         'wp_apis_user',
-         'wp_apis_users'
-      );
-
-
-         add_submenu_page(
-         'wp_apis_admin',
-         'Batman',
-         'Batman',
-         'manage_options',
-         'wp_apis_batman',
-         'wp_apis_batman2'
+         'wp_apis_db',
+         'wp_apis_db'
       );
 };
 
@@ -63,7 +54,6 @@ function wp_apis_main_menu_handler(){
       'firstName' => 'Art',
       'lastName'  => 'Tavan'
    ];
-
 
    // in php for get data coming from a form sent by post method we user a per-define var
    if(isset($_POST['saveSetting'])){   //  $_POST  is super global
@@ -86,9 +76,8 @@ function wp_apis_main_menu_handler(){
 
    // this user data define above can access from main.php include down here
    include WP_APIS_TPL.'admin/menus/main.php';
+
 };
-
-
 
 function wp_apis_general_page(){
 
@@ -109,56 +98,72 @@ function wp_apis_general_page(){
    }
    $current_public_ = get_option('WP_PUBLIC_OPTION', 0);
 
-   include WP_APIS_TPL.'admin/menus/public.php';
+   include WP_APIS_TPL . 'admin/menus/public.php';
 };
 
+function wp_apis_form(){
 
+      $user_data = [
+         'firstName' => 'Art',
+         'lastName'  => 'Coder'
+      ];
 
-function wp_apis_general_theme(){
-
-   $theme = [
-      'firstTheme' => 'light',
-      'secondTheme' => 'dark'
-   ];
-   
-   include WP_APIS_TPL.'admin/menus/theme.php';
-};
-
-
-
-function wp_apis_users(){
-
-   if(isset($_POST['saveVip'])){
-    
-      if(isset($_POST['vip_mode'])){
-         update_option('WP_VIP', 1);
-         echo"Vip user on";
-      }else{
-         delete_option('WP_VIP');
-         echo"Vip user off";
-      }
-   }
-
-   $current_VIP = get_option('WP_VIP', 0);
-
-   include WP_APIS_TPL.'admin/menus/user.php';
-}
-
-   function wp_apis_batman2(){
-
-      if(isset($_POST['call_batman'])){
-
-         if(isset($_POST['batman_car'])){
-            update_option('batman_fly_on', 1);
-            echo"Batman on mission do not disturb";
+      if(isset($_POST['save_feeling'])){
+         if(isset($_POST['anger']) && isset($_POST['happy']) && isset($_POST['shy'])){
+            update_option('WP_FEELING_ACTIVE', 1);
+            echo "Your feeling is add to uni";
          }else{
-            delete_option('batman_fly_on');
-            ecHO"Batman is resting for a while";
+            delete_option('WP_FEELING_ACTIVE');
+            echo"Your feeling is remove from uni";
          }
       }
+      $option = get_option('WP_FEELING_ACTIVE', 0);
 
-      $batman_fly = get_option('batman_fly_on' ,0);
-      include WP_APIS_TPL.'admin/menus/user2.php';
+      include WP_APIS_TPL . 'admin/menus/form.php';
+};
+
+
+function wp_apis_db(){
+
+   // we use this api in function to get data from database and pass it to database.php page
+   global $wpdb;
+
+   // this section delete item from database ==== 
+   $action = $_GET['action'];
+
+   if($action == "delete")
+   {
+      $item = intval($_GET['item']);
+
+      if($item > 0)
+      {  
+                    // $wpdb->prefix.'the name of table' 
+         $wpdb->delete('batman_t', ['id' => $item]);
+      }
    }
+   //  =================================
+   //  this section add item into database
+   if($action == "add")
+   {
+      if(isset($_POST['saveData'])){
+            
+        $wpdb->insert('batman_t' , [
+            'firstName' => $_POST['firstName'],
+            'lastName'  => $_POST['lastName'],
+            'mobile'    => $_POST['mobile']
+        ]);
+      }
+
+      include WP_APIS_TPL . 'admin/menus/add.php';
+
+   }else{
+
+      $samples = $wpdb->get_results("SELECT * FROM batman_t");
+      
+      include WP_APIS_TPL . 'admin/menus/database.php';
+   }
+
+   
+};
 
 ?>
