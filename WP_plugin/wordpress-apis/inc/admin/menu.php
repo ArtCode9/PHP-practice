@@ -225,6 +225,21 @@ function wp_apis_contact(){
 //  =============================================================
 function wp_apis_users_page(){
 
+/* // this is how we create a new  user 👇👇👇 
+   $newPassword = wp_generate_password(10);
+
+   $userEmail = "userEmail123@gmail.com";
+
+   $userEmailData = explode('@', $userEmail);
+
+// with this function wp_create_user we can create new user for database  TIPS: we should run this code all the time
+   wp_create_user($userEmailData[0], $newPassword, $userEmail);
+ */
+
+// this is another way create a new user👇👇👇
+
+
+
    // here we want to get data from main database of wordpress
    global $wpdb;
 
@@ -265,7 +280,6 @@ function wp_apis_users_page(){
       
    include WP_APIS_TPL . 'admin/menus/users/users.php';                               // here👈
 
-}
+};
 //  =============================================================
-
 ?>
