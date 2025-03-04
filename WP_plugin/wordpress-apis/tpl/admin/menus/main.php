@@ -3,7 +3,7 @@
    <hr style="border: 3px solid green;">
    <?php
       // this user data come from menu.php in function section
-            
+      var_dump($user_data);
    ?>
 
    <br><br><hr style="border: 3px solid orange;">

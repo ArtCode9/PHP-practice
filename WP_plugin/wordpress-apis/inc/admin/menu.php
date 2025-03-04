@@ -48,6 +48,15 @@ function wp_apis_register_menus(){
 
       add_submenu_page(
          'wp_apis_admin',
+         'Data Contact',
+         'Contact',
+         'manage_options',
+         'wp_apis_contact',
+         'wp_apis_contact'
+      );
+
+      add_submenu_page(
+         'wp_apis_admin',
          'کاربران',
          'کاربران',
          'manage_options',
@@ -55,7 +64,7 @@ function wp_apis_register_menus(){
          'wp_apis_users_page'
       );
 };
-
+//  =============================================================
 // we use this function inside menu  add_menu_page()  function above
 function wp_apis_main_menu_handler(){
      
@@ -75,8 +84,10 @@ function wp_apis_main_menu_handler(){
          // for save and update the setting WP use this apis function to WP database
          //add_option('WP_ACTIVE', $is_plugin_active);
          update_option('WP_ACTIVE', 1);
+         echo"your Option is active";
       }else {
          delete_option('WP_ACTIVE');
+         echo"your option is deActive";
       }
    }
 
@@ -87,7 +98,7 @@ function wp_apis_main_menu_handler(){
    include WP_APIS_TPL.'admin/menus/main.php';
 
 };
-
+//  =============================================================
 function wp_apis_general_page(){
 
    $user_data = [
@@ -109,7 +120,7 @@ function wp_apis_general_page(){
 
    include WP_APIS_TPL . 'admin/menus/public.php';
 };
-
+//  =============================================================
 function wp_apis_form(){
 
       $user_data = [
@@ -130,8 +141,7 @@ function wp_apis_form(){
 
       include WP_APIS_TPL . 'admin/menus/form.php';
 };
-
-
+//  =============================================================
 function wp_apis_db(){
 
    // we use this api in function to get data from database and pass it to database.php page
@@ -174,7 +184,45 @@ function wp_apis_db(){
 
    
 };
+//  =============================================================
+function wp_apis_contact(){
 
+
+   global $wpdb;
+
+   $action = $_GET['action'];
+
+   if($action == 'delete')
+   {
+         $item = intval($_GET['id']);
+
+         if($item > 0 )
+         {
+            $wpdb->delete('contact', ['id' => $item]);
+         }   
+   }
+
+   if($action == 'add'){
+      
+      if(isset($_POST['addContact'])){
+
+         $wpdb->insert('contact', [
+            'name' => $_POST['name'],
+            'family' => $_POST['family'],
+            'mobile' => $_POST['mobile'],
+            'address' => $_POST['address']
+         ]);
+      }
+      
+      include WP_APIS_TPL . 'admin/menus/add2.php';
+
+   }else{
+      $contacts = $wpdb->get_results("SELECT * FROM contact");
+
+      include WP_APIS_TPL . 'admin/menus/contact.php';
+   }
+};
+//  =============================================================
 function wp_apis_users_page(){
 
    // here we want to get data from main database of wordpress
@@ -196,8 +244,6 @@ function wp_apis_users_page(){
          if(!empty($wallet)){
             update_user_meta($userID,'wallet', $wallet);
          }
-         
-         
       }
       
       // 👇 this two var get mobile and wallet data for fill input value in edit.php
@@ -206,21 +252,20 @@ function wp_apis_users_page(){
 
       include WP_APIS_TPL . 'admin/menus/users/edit.php';
       return;
-
-
    }
 
    if(isset($_GET['action']) && $_GET['action'] == 'removeMobileAndWallet'){
       $userID = intval($_GET['id']);
       delete_user_meta($userID, 'mobile');
       delete_user_meta($userID, 'wallet');
-
    }
 
    $users = $wpdb->get_results("SELECT ID, user_email, display_name FROM {$wpdb->users }");
    // after we get users data from database we can use all this in users.php we include below👇
       
-   include WP_APIS_TPL . 'admin/menus/users/users.php';                                     // here👈
+   include WP_APIS_TPL . 'admin/menus/users/users.php';                               // here👈
 
 }
+//  =============================================================
+
 ?>
