@@ -213,6 +213,7 @@ function support_ticket_form_shortcode() {
 add_shortcode('support_ticket_form', 'support_ticket_form_shortcode');
 // ==================================================================
 
+
 // 🚩==================================================================
 
 // تابع برای پردازش ارسال تیکت
@@ -223,7 +224,7 @@ function handle_ticket_submission() {
         $user_id = get_current_user_id();
         $ip_address = $_SERVER['REMOTE_ADDR'];
 
-        // Validate reCAPTCHA
+      // Validate reCAPTCHA
       //   $response = $_POST['g-recaptcha-response'];
         $secretKey = 'YOUR_SECRET_KEY';
         $remoteIp = $_SERVER['REMOTE_ADDR'];
@@ -276,7 +277,7 @@ function handle_ticket_submission() {
 }
 // ==================================================================
 
-
+// ==================================================================
 // نمایش تیکت‌ها در پیشخوان با فیلتر بر اساس وضعیت
 function display_tickets_in_admin() {
     global $wpdb;
@@ -335,7 +336,16 @@ function display_tickets_in_admin() {
             echo '<td>' . esc_html($ticket->priority) . '</td>';
             echo '<td>' . esc_html($ticket->status) . '</td>';
             echo '<td>' . esc_html($ticket->created_at) . '</td>';
-            echo '<td>' . esc_html($ticket->message) . '</td>';
+            echo '<td>' . esc_html($ticket->message) . '<a href="#popup" onclick="showModal()">Show Message</a>' . 
+            '
+                <div id="popup" style="display:none; width:800px; padding:22px; font-size:33px; position:fixed; top:50%; left:50%; 
+                        transform:translate(-50%, -50%); background:tomato; padding:20px;
+                        border:1px solid #ccc; box-shadow:0 0 10px rgba(0,0,0,0.1);">                
+                        '. esc_html($ticket->message)/* in this part set get data from database on condition */ .' 
+                    <button onclick="hideModal()">close</button> </div>
+
+            '
+            .'</td>';
             echo '<td>' . esc_html($ticket->support_agent) . '</td>';
             echo '<td>
                 <form method="POST" style="display:inline;">
@@ -356,6 +366,10 @@ function display_tickets_in_admin() {
                 </form>
             </td>';
             echo '</tr>';
+
+// =======================================================
+
+// =======================================================
         }
     } else {
         echo '<tr><td colspan="11" style="text-align: center;">تیکتی موجود نیست.</td></tr>';
@@ -533,3 +547,18 @@ function add_status_field_in_ticket_form() {
     echo '<input type="hidden" name="ticket_status" value="new">';
 }
 add_action('support_ticket_form', 'add_status_field_in_ticket_form');
+
+
+?>
+    <script>
+    function showModal() {
+        document.getElementById('popup').style.display = 'block';
+    }
+
+    function hideModal() {
+        document.getElementById('popup').style.display = 'none';
+    }
+    </script>
+<?php
+
+?>
