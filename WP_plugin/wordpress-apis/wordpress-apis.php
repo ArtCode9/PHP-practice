@@ -54,14 +54,14 @@ if(is_admin()){
 
 // =---=-==-=-==-=-=-==-=-=-=-=-=-=-=-=-=-=-=-==-=
 // here we add css and js for wordpress with function  >>  wp_register_style();    (check doc)
-function wpapis_register_style(){
+function wpapis_register_styles(){
    
    // here we register file 
-   wp_register_style('wpapis_main_style', WP_APIS_URL . 'assets/CSS/main.css');
+   wp_register_style('wpapis_main_style', WP_APIS_URL . 'assets/CSS/main.css', array(), false, 'all');
    // now we invoke file
    wp_enqueue_style('wpapis_main_style');
-
+   
 };
 
-add_action('wp_enqueue_scripts', 'wpapis_register_style');
-
+add_action('wp_enqueue_scripts', 'wpapis_register_styles');
+add_action('admin_enqueue_scripts', 'wpapis_register_styles');
