@@ -55,10 +55,27 @@ if(is_admin()){
 // =---=-==-=-==-=-=-==-=-=-=-=-=-=-=-=-=-=-=-==-=
 // here we add css and js for wordpress with function  >>  wp_register_style();    (check doc)
 function wpapis_register_styles(){
+   // here we add style css to our pages
    error_log('wpapis_register_styles function called'); // Check your debug log
-   wp_register_style('wpapis_main_style', WP_APIS_URL . 'assets/CSS/main.css', array(), false, 'all');
+   wp_register_style('wpapis_main_style', WP_APIS_URL . 'assets/css/main.css', array(), false, 'all');
    wp_enqueue_style('wpapis_main_style');
-}
+
+
+// here we add js function  to our pages
+// with this if  condition we just add this to admin user not main page of our website
+   if(is_admin()){
+      wp_register_script('wpapis-admin-scripts', WP_APIS_URL . 'assets/js/wpapis-admin.js');
+      wp_enqueue_script('wpapis-admin-scripts');
+   }else{
+      wp_register_script('wpapis-scripts',
+                          WP_APIS_URL . 'assets/js/wpais.js',
+                          ['jquery'],
+                          '1.5.0', 
+                          true);
+
+      wp_enqueue_script('wpapis-scripts');
+   }   
+};
 
 add_action('wp_enqueue_scripts', 'wpapis_register_styles');
 add_action('admin_enqueue_scripts', 'wpapis_register_styles');
