@@ -21,10 +21,27 @@ register_deactivation_hook(__FILE__, 'wp_apis_plugin_deactivation');
 
 
 function wp_apis_plugin_activation(){
-   echo"this is wordpress-apis";
+
+   // here we add rule for user with add_role function to main user section of wordpress
+      add_role(
+         'shop_manager',
+         'Shop Manager',
+         [
+            'read' => true,
+            'edit_posts' => true,
+            'remove_products'
+         ]
+      );
+
+      // here we add Cap to role with add_cap function
+      $role = get_role('administrator');
+      $role->add_cap('remove_products');
+
 };
 function wp_apis_plugin_deactivation(){
-   echo"this is wordpress-plugin";
+
+   echo "the wordpress-apis plugin is deActive!";
+
 };
 //  after we learn about array we can build option for plugin for users
 

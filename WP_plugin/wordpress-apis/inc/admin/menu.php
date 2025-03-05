@@ -67,6 +67,10 @@ function wp_apis_register_menus(){
 //  =============================================================
 // we use this function inside menu  add_menu_page()  function above
 function wp_apis_main_menu_handler(){
+
+   // if(current_user_can('delete_other_posts')){
+
+   // }
      
    $user_data = [
       'firstName' => 'Art',
