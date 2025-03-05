@@ -224,21 +224,45 @@ function wp_apis_contact(){
 };
 //  =============================================================
 function wp_apis_users_page(){
-
-/* // this is how we create a new  user 👇👇👇 
+   
+    // this is how we create a new  user 👇👇👇 
    $newPassword = wp_generate_password(10);
-
    $userEmail = "userEmail123@gmail.com";
-
    $userEmailData = explode('@', $userEmail);
 
+/*
 // with this function wp_create_user we can create new user for database  TIPS: we should run this code all the time
-   wp_create_user($userEmailData[0], $newPassword, $userEmail);
- */
+    wp_create_user($userEmailData[0], $newPassword, $userEmail);
+*/
 
 // this is another way create a new user👇👇👇
+$new_user_result = wp_insert_user(
+   [
+      'user_pass' => $newPassword,
+      'user_email' => $userEmail,
+      'user_login' => $userEmailData[0],
+      'display_name' => 'new user'
+   ]
+);
 
+   // this is for get error 👇👇👇
+   
+   // if(!is_wp_error($new_user_result))
+   // {
+   //    // fill this from document online 
+   // }
 
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=---=-=--=-=-=--=-=
+   //  in this section we update the user info👇👇👇
+   $user_id = wp_update_user([
+      'ID' => 6, // select number from table row
+      'display_name' => 'vip user add'
+   ]);
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=---=-=--=-=-=--=-=
+//  in this section we can delete user 👇👇👇
+   $user_delete = wp_delete_user(7, 1);
+
+   // 🔴 important tips for all this function check this source : codex.wordpress.org
 
    // here we want to get data from main database of wordpress
    global $wpdb;
