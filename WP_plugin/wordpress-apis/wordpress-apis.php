@@ -33,7 +33,7 @@ function wp_apis_plugin_activation(){
          ]
       );
 
-      // here we add Cap to role with add_cap function
+// here we add Cap to role with add_cap function for all users with extra options
       $role = get_role('administrator');
       $role->add_cap('remove_products');
 
@@ -52,4 +52,16 @@ if(is_admin()){
    include WP_APIS_INC.'admin/metaboxes.php';
 };
 
-?>
+// =---=-==-=-==-=-=-==-=-=-=-=-=-=-=-=-=-=-=-==-=
+// here we add css and js for wordpress with function  >>  wp_register_style();    (check doc)
+function wpapis_register_style(){
+   
+   // here we register file 
+   wp_register_style('wpapis_main_style', WP_APIS_URL . 'assets/CSS/main.css');
+   // now we invoke file
+   wp_enqueue_style('wpapis_main_style');
+
+};
+
+add_action('wp_enqueue_scripts', 'wpapis_register_style');
+
