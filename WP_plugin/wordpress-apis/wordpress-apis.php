@@ -48,9 +48,11 @@ function wp_apis_plugin_deactivation(){
 
 // here we add menu.php file from admin directory
 if(is_admin()){
-   include WP_APIS_INC.'admin/menu.php';
-   include WP_APIS_INC.'admin/metaboxes.php';
+   include WP_APIS_INC . 'admin/menu.php';
+   include WP_APIS_INC . 'admin/metaboxes.php';
 };
+
+   include WP_APIS_INC . 'ajax.php';
 
 // =---=-==-=-==-=-=-==-=-=-=-=-=-=-=-=-=-=-=-==-=
 // here we add css and js for wordpress with function  >>  wp_register_style();    (check doc)

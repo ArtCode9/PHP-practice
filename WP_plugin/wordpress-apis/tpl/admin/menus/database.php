@@ -3,6 +3,9 @@
     <h1>List of information</h1>
     <a href="<?php echo add_query_arg(['action' => 'add']) ?>">add person</a> 
 
+    <!-- Ajax section -->
+     <button id="sendAjaxRequest" class="button">sendAjaxRequest</button>
+
 <!-- here in this table we get data from database and show them in a table -->
     <table class="widefat">
         <thead>

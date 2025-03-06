@@ -39,7 +39,7 @@ function wp_apis_register_menus(){
       // submenu 3
       add_submenu_page(
          'wp_apis_admin',
-         'Data wpdb',
+         'Data wpd',
          'Database Sql',
          'manage_options',
          'wp_apis_db',
@@ -128,9 +128,9 @@ function wp_apis_general_page(){
 function wp_apis_form(){
 
       $user_data = [
-         'firstName' => 'Art',
-         'lastName'  => 'Coder'
-      ];
+                   'firstName' => 'Art',
+                   'lastName'  => 'Coder'
+                   ];
 
       if(isset($_POST['save_feeling'])){
          if(isset($_POST['anger']) && isset($_POST['happy']) && isset($_POST['shy'])){
@@ -163,7 +163,8 @@ function wp_apis_db(){
                     // $wpdb->prefix.'the name of table' 
          $wpdb->delete('batman_t', ['id' => $item]);
       }
-   }
+   };
+   
    //  =================================
    //  this section add item into database
    if($action == "add")
@@ -185,8 +186,6 @@ function wp_apis_db(){
       
       include WP_APIS_TPL . 'admin/menus/database.php';
    }
-
-   
 };
 //  =============================================================
 function wp_apis_contact(){
