@@ -23,3 +23,4 @@ include WP_AUTH_INC . "functions.php";
 
 // after we create the shortcode file we include that here and after active plugin we access those shortcode
 include WP_AUTH_INC . "shortCode.php";
+include WP_AUTH_INC . "ajax.php";

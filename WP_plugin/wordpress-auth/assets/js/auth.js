@@ -1,5 +1,6 @@
 jQuery(document).ready(function ($) {
 
+   // login section
    $('#loginForm').on('submit', function (event){
 
       event.preventDefault();
@@ -20,21 +21,23 @@ jQuery(document).ready(function ($) {
                },
                success: function (resposne) { 
                   console.log(resposne);
-
-
                },
                error: function (error) { 
-                  console.log(error);
+                  console.log(error.responseJSON);
                   if(error) {
+                        let message = error.responseJSON.message;
+
                         notify.addClass('alert-error');
-                        notify.append('<p>Error happing</p>');
+                        notify.append('<p>'+ message +'</p>');
                         notify.css('display', 'block');
+                        notify.delay(2000).hide(300);
                   }
                }
       });
    });
+// ====================================================================
 
-
+// register section 
    $('#registerForm').on('submit', function (event) {
 
       event.preventDefault();

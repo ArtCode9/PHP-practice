@@ -8,12 +8,12 @@
 
                   <div class="form-row">
                         <label for="userEmail">Email :</label>
-                        <input type="text" name="userEmail" id="userEmail">
+                        <input type="email" name="userEmail" id="userEmail">
                   </div>
 
                   <div class="form-row">
                         <label for="userPassword">Password</label>
-                        <input type="text" name="userPassword" id="userPassword">
+                        <input type="password" name="userPassword" id="userPassword">
                   </div>
 
                   <div class="form-row">
