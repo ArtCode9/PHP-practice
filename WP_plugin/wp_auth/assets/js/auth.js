@@ -19,14 +19,23 @@ jQuery(document).ready(function ($) {
                                  user_email: userEmail,
                                  user_password: userPassword                          
                         },
-                        success: function (response) {},
+                        success: function (response) {
+
+
+                        },
                         error: function (error) {
-                              // console.log(error); 
+                              // console.log(error.responseJSON); 
+                              
                               if(error)
                               {
+                                 let message = error.responseJSON.message;
+                                 
+
                                  notify.addClass('alert-error');
-                                 notify.append('<p>fatale Error happen</p>');
+                                 notify.append('<p>'+ message +'</p>');
                                  notify.css('display', 'block');
+                                 notify.delay(2000).hide(300);
+
                               }
                         }
                });

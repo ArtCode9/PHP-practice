@@ -18,7 +18,7 @@ define('WP_AUTH_TPL', WP_AUTH_DIR . '/tpl/');
 
 include WP_AUTH_INC . "functions.php";
 include WP_AUTH_INC . "shortcodes.php";
-
+include WP_AUTH_INC . "ajax.php";
 
 
 
