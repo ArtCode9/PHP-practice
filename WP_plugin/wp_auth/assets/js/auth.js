@@ -9,34 +9,59 @@ jQuery(document).ready(function ($) {
             let userEmail = $('#user-email').val();
             let userPassword = $('#user-password').val();
             let notify = $('.alert');
+            let ajaxurl = ajax_data.ajaxurl; // Will contain the correct URL.
 
                $.ajax({
-                        url: '/wp-admin/admin-ajax.php', // this is the adress where request send to
+                  url: ajaxurl, // this is the address where request send to
                         type: 'post',
                         dataType: 'json',
                         data: {
                                  action: 'wp_auth_login',
                                  user_email: userEmail,
-                                 user_password: userPassword                          
+                                 user_password: userPassword , 
+                                 nonce: ajax_data.nonce  // Add the nonce for security                        
                         },
                         success: function (response) {
+                           if(response.success){
 
+                              notify.removeClass('alert-error').addClass('alert-success');
+                              notify.html('<p>' + response.message + '</p>');
+                              notify.css('display', 'block');
+                              setTimeout(function () {
+                                 window.location.href = 'http://localhost/wordpress/';
+                              }, 2000);
 
+                           }
                         },
                         error: function (error) {
-                              // console.log(error.responseJSON); 
+                           console.log('The operation failed');
+                           // Check if error.responseJSON exists and is an object
+                           if (error.responseJSON && error.responseJSON.message) {
+                               let message = error.responseJSON.message;
+           
+                               notify.addClass('alert-error');
+                               notify.html('<p>' + message + '</p>');
+                               notify.css('display', 'block');
+                               notify.delay(2000).hide(300);
+                           } else {
+                               // Handle non-JSON errors
+                               notify.addClass('alert-error');
+                               notify.append('<p>Unexpected error occurred. Please try again later.</p>');
+                               notify.css('display', 'block');
+                               notify.delay(2000).hide(300);
+                           }
+                           /* console.log(`The operation is failed`);
+                              console.log(error.responseJSON); 
                               
                               if(error)
                               {
                                  let message = error.responseJSON.message;
                                  
-
                                  notify.addClass('alert-error');
                                  notify.append('<p>'+ message +'</p>');
                                  notify.css('display', 'block');
                                  notify.delay(2000).hide(300);
-
-                              }
+                              } */
                         }
                });
    });
@@ -56,7 +81,7 @@ jQuery(document).ready(function ($) {
 
 
             $.ajax({
-                  url: '/wp-admin/admin-ajax.php', // this is the adress where request send to
+                  url: '/wp-admin/admin-ajax.php', // this is the address where request send to
                   type: 'post',
                   dataType: 'json',
                   data: {
@@ -67,12 +92,7 @@ jQuery(document).ready(function ($) {
                         user_password: userPassword
                   },
                   success: function (response) {},
-                  error: function (error) {
-                     // console.log(error);
-                                 notify.addClass('alert-error');
-                                 notify.append('<p>fatale Error happen</p>');
-                                 notify.css('display', 'block');
-                  }
+                  error: function (error) {}
             });
    });
 

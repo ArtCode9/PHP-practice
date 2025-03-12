@@ -20,10 +20,36 @@ function wp_auth_do_login()
 
    }
 
+
+   $user = wp_authenticate_email_password(null, $user_email, $user_password);
+   if(is_wp_error($user)){
+
+      wp_send_json([
+         'success' => false,
+         'message' => 'There is no user with this information',
+      ], 403);      
+   }
+   
+   $loginResult =  wp_signon([
+      'user_login' => $user->user_login,
+      'user_password' => $user_password,
+      'remember' => false
+   ]);
+   if(is_wp_error($loginResult))
+   {
+      wp_send_json([
+         'success' => false,
+         'message' => 'Can not access to site try again later!',
+      ], 403);
+   }
+   wp_send_json([
+      'success' => true,
+      'message' => 'mission Done',
+   ], 200);
 };
 
 
-add_action('wp_ajax_nopriv_wp_auth_login', 'wp_auth_do_login'); // if there is nopriv add this ajax work only for users have account in our site
+add_action('wp_ajax_wp_auth_login', 'wp_auth_do_login'); // if there is nopriv add this ajax work only for users have account in our site
 
 
 function wp_auth_validate_email_and_password ($email, $password)
