@@ -78,10 +78,11 @@ jQuery(document).ready(function ($) {
             let userEmail = $('#user-email').val();
             let userPassword = $('#user-password').val();
             let notify = $('.alert');
+            let ajaxurl = ajax_data.ajaxurl; // Will contain the correct URL.
 
 
             $.ajax({
-                  url: '/wp-admin/admin-ajax.php', // this is the address where request send to
+                  url: ajaxurl, // this is the address where request send to
                   type: 'post',
                   dataType: 'json',
                   data: {
@@ -89,10 +90,41 @@ jQuery(document).ready(function ($) {
                         user_first_name: firstName,
                         user_last_name: lastName,
                         user_email: userEmail,
-                        user_password: userPassword
+                        user_password: userPassword,
+                        nonce: ajax_data.nonce  // Add the nonce for security
                   },
-                  success: function (response) {},
-                  error: function (error) {}
+                  success: function (response) {
+                     if(response.success){
+
+                        notify.removeClass('alert-error').addClass('alert-success');
+                        notify.html('<p>' + response.message + '</p>');
+                        notify.show(300);
+                        notify.css('display', 'block');
+                        setTimeout(function () {
+                           window.location.href = 'http://localhost/wordpress/login-pages';
+                        }, 2000);
+
+                     }
+                  },
+                  error: function (error) {
+                     console.log('The operation failed');
+                     // Check if error.responseJSON exists and is an object
+                     if (error.responseJSON && error.responseJSON.message) {
+                         let message = error.responseJSON.message;
+     
+                         notify.addClass('alert-error');
+                         notify.html('<p>' + message + '</p>');
+                         notify.show();
+                         notify.css('display', 'block');
+                         notify.delay(2000).hide(300);
+                     } else {
+                         // Handle non-JSON errors
+                         notify.addClass('alert-error');
+                         notify.append('<p>Unexpected error occurred. Sign up failed.</p>');
+                         notify.css('display', 'block');
+                         notify.delay(2000).hide(300);
+                     }
+                  }
             });
    });
 
