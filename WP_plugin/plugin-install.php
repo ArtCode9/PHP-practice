@@ -10,6 +10,9 @@
    Version: 1.0.0
 */
 
+// warning before uninstall this plugin make copy of it to prevent deleting
+
+
 // this is how we create custom table in db😎
 
 function pi_install_default_configs()
