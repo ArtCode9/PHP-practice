@@ -5,6 +5,9 @@
       </div>
 
       <div class="register-wrapper">
+      <?php if(isset($wp_auth_options['register_form_title'])) : ?>
+        <h2> <?php echo $wp_auth_options['register_form_title']; ?></h2> <!-- this come from setting plugin  -->
+      <?php endif; ?>
             <form action="" method="post" id="registerForm">
                   
                   <div class="form-row">
