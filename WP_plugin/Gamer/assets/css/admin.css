@@ -1,0 +1,19 @@
+.game-selection {
+   padding: 10px;
+}
+
+.game-selection p {
+   margin: 8px 0;
+}
+
+.gamer-item {
+   border: 1px solid #ddd;
+   padding: 15px;
+   margin-bottom: 15px;
+   border-radius: 4px;
+   background: #f9f9f9;
+}
+
+.gamer-item h3 {
+   margin-top: 0;
+}
