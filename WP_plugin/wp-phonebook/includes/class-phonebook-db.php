@@ -43,5 +43,26 @@ class PhoneBook_DB {
         return $wpdb->delete($table_name, array('id' => $id));
     }
 
+
+    // this is new section add for update 
+    public function get_contact($id){
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'phonebook_contacts';
+        return $wpdb->get_row(
+            $wpdb->prepare("SELECT * FROM $table_name WHERE id = %d", $id)
+        );
+    }
     
+    public function update_contact($id, $data){
+            global $wpdb;
+            $table_name = $wpdb->prefix . 'phonebook_contacts';
+
+            return $wpdb->update(
+                $table_name,
+                $data,
+                array('id' => $id),
+                array('%s', '%s', '%s', '%s',),
+                array('%d')
+            );
+    }
 }

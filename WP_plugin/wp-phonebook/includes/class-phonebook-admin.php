@@ -50,11 +50,28 @@ class PhoneBook_Admin {
             );
             $db->add_contact($data);
         }
+
+        if (isset($_POST['update_contact'])) {
+            $id = intval($_POST['contact_id']);
+            $data = array(
+                'name' => sanitize_text_field($_POST['name']),
+                'phone' => sanitize_text_field($_POST['phone']),
+                'email' => sanitize_email($_POST['email']),
+                'address' => sanitize_textarea_field($_POST['address'])
+            );
+            $db->update_contact($id, $data);
+        }
         
         if (isset($_GET['delete_contact'])) {
             $db->delete_contact(intval($_GET['delete_contact']));
         }
         
+        // دریافت مخاطب برای ویرایش
+        $edit_contact = null;
+        if (isset($_GET['edit_contact'])) {
+             $edit_contact = $db->get_contact(intval($_GET['edit_contact']));
+        }
+
         $contacts = $db->get_contacts();
         
         include WP_PHONEBOOK_PATH . 'templates/admin-page.php';
