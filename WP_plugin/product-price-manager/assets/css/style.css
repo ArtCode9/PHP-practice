@@ -1,0 +1,70 @@
+.ppm-wrapper {
+    margin: 20px;
+}
+
+.ppm-toolbar {
+    background: #fff;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.ppm-search-section {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.ppm-search-section input[type="text"] {
+    width: 300px;
+    max-width: 100%;
+}
+
+.ppm-search-section button {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.ppm-filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+.ppm-bulk-actions {
+    margin: 20px 0;
+    display: flex;
+    gap: 10px;
+}
+
+.button-danger {
+    background: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+.ppm-per-page {
+    width: 150px;
+}
+
+.ppm-pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* تنظیم عرض کادرهای قیمت */
+.ppm-regular-price, .ppm-sale-price {
+    width: 100px !important;
+    text-align: center;
+}
+
+/* نشانگر محصولات متغیر */
+.ppm-variable-indicator {
+    color: #ff9800;
+    margin-right: 5px;
+}

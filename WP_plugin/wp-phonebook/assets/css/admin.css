@@ -1,0 +1,38 @@
+.wp-phonebook-admin {
+   max-width: 1000px;
+}
+
+.wp-phonebook-form {
+   background: #fff;
+   padding: 20px;
+   margin-bottom: 20px;
+   border-radius: 4px;
+}
+
+.wp-phonebook-form .form-group {
+   margin-bottom: 15px;
+}
+
+.wp-phonebook-form label {
+   display: block;
+   margin-bottom: 5px;
+   font-weight: bold;
+}
+
+.wp-phonebook-form input[type="text"],
+.wp-phonebook-form input[type="email"],
+.wp-phonebook-form textarea {
+   width: 100%;
+   max-width: 400px;
+   padding: 8px;
+}
+
+.wp-phonebook-form textarea {
+   height: 100px;
+}
+
+.button-danger {
+   color: #fff;
+   background: #dc3232;
+   border-color: #dc3232;
+}
