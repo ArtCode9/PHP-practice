@@ -22,6 +22,9 @@ class PhoneBook_Admin {
             return;
         }
         
+        // اضافه کردن فونت dashicons
+        wp_enqueue_style('dashicons');
+
         wp_enqueue_style(
             'wp-phonebook-admin',
             WP_PHONEBOOK_URL . 'assets/css/admin.css',

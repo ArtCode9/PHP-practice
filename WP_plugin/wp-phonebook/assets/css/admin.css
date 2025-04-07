@@ -1,57 +1,180 @@
-/* استایل‌های فرم ویرایش */
-.wp-phonebook-form {
-   background: #fff;
-   padding: 20px;
-   margin-bottom: 20px;
-   border-radius: 4px;
-   border-left: 4px solid #2271b1;
+/* طرح‌بندی اصلی */
+.wp-phonebook-admin {
+   max-width: 1200px;
+   margin: 0 auto;
+   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+}
+
+/* هدر صفحه */
+.phonebook-header {
    display: flex;
-   flex-direction: column;
+   justify-content: space-between;
+   align-items: center;
+   margin-bottom: 30px;
+   padding-bottom: 15px;
+   border-bottom: 1px solid #e0e0e0;
 }
 
-.wp-phonebook-form h2 {
-   margin-top: 0;
-   color: #2271b1;
+.phonebook-header h1 {
+   color: #3f51b5;
+   margin: 0;
+   font-weight: 500;
 }
 
-.wp-phonebook-form .form-group {
-   margin-bottom: 15px;
+/* کارت‌های فرم */
+.phonebook-card {
+   background: #fff;
+   border-radius: 8px;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+   margin-bottom: 30px;
+   overflow: hidden;
 }
 
-.wp-phonebook-form label {
+.card-header {
+   background: #ee560a;
+   color: white;
+   padding: 15px 20px;
+   font-size: 16px;
+   font-weight: 500;
+}
+
+.card-body {
+   padding: 20px;
+}
+
+/* فرم‌ها */
+.form-material {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 20px;
+}
+
+.form-group {
+   margin-bottom: 20px;
+}
+
+.form-group label {
    display: block;
-   margin-bottom: 5px;
-   font-weight: bold;
+   margin-bottom: 8px;
+   color: #555;
+   font-weight: 500;
+   font-size: 14px;
 }
 
-.wp-phonebook-form input[type="text"],
-.wp-phonebook-form input[type="email"],
-.wp-phonebook-form textarea {
+.form-control {
    width: 100%;
-   max-width: 400px;
-   padding: 8px;
+   padding: 10px 12px;
    border: 1px solid #ddd;
    border-radius: 4px;
+   font-size: 14px;
+   transition: border 0.3s;
 }
 
-.wp-phonebook-form textarea {
-   height: 100px;
+.form-control:focus {
+   border-color: #3f51b5;
+   outline: none;
+   box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.2);
 }
 
-/* دکمه‌های عملیات */
-.button-secondary {
-   background: #f0f0f0;
-   border-color: #ccc;
-   color: #23282d;
+textarea.form-control {
+   min-height: 100px;
+   resize: vertical;
 }
 
-.button-danger {
-   color: #fff;
-   background: #dc3232;
-   border-color: #dc3232;
+/* دکمه‌ها */
+.btn {
+   padding: 8px 16px;
+   border-radius: 4px;
+   font-size: 14px;
+   cursor: pointer;
+   transition: all 0.3s;
+   border: none;
 }
 
-.button-danger:hover {
-   background: #a00;
-   border-color: #a00;
+.btn-primary {
+   background: #3f51b5;
+   color: white;
+}
+
+.btn-primary:hover {
+   background: #303f9f;
+}
+
+.btn-secondary {
+   background: #f5f5f5;
+   color: #333;
+   border: 1px solid #ddd;
+}
+
+.btn-secondary:hover {
+   background: #e0e0e0;
+}
+
+.btn-danger {
+   background: #f44336;
+   color: white;
+}
+
+.btn-danger:hover {
+   background: #d32f2f;
+}
+
+.btn-group {
+   display: flex;
+   gap: 10px;
+}
+
+/* جدول مخاطبین */
+.contacts-table {
+   width: 100%;
+   border-collapse: collapse;
+}
+
+.contacts-table th {
+   background: #f5f5f5;
+   text-align: right;
+   padding: 12px 15px;
+   font-weight: 500;
+   color: #555;
+   border-bottom: 2px solid #eee;
+}
+
+.contacts-table td {
+   padding: 12px 15px;
+   border-bottom: 1px solid #eee;
+   vertical-align: middle;
+}
+
+.contacts-table tr:hover td {
+   background: #f9f9f9;
+}
+
+.contact-actions {
+   display: flex;
+   gap: 5px;
+}
+
+/* وضعیت خالی */
+.empty-state {
+   text-align: center;
+   padding: 40px 20px;
+   color: #777;
+}
+
+.empty-state i {
+   font-size: 48px;
+   color: #ddd;
+   margin-bottom: 15px;
+   display: block;
+}
+
+/* پاسخگو */
+@media (max-width: 768px) {
+   .form-material {
+       grid-template-columns: 1fr;
+   }
+   
+   .contact-actions {
+       flex-direction: column;
+   }
 }
