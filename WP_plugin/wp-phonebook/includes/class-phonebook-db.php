@@ -42,4 +42,6 @@ class PhoneBook_DB {
         $table_name = $wpdb->prefix . 'phonebook_contacts';
         return $wpdb->delete($table_name, array('id' => $id));
     }
+
+    
 }
