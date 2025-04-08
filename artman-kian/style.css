@@ -1,0 +1,283 @@
+* {
+   padding: 0;
+   margin: 0;
+   box-sizing: border-box;
+   /* border: 2px solid black; */
+}
+body{
+   height: 600vh;
+   display: flex;
+   flex-direction: column;
+   
+}
+.navbar {
+   width: 94%;
+   height: 132px;
+   margin: 12px auto;
+   border-bottom: 1px solid lightgray;
+   /* background-color: #05a81b81; */
+   display: flex;
+   flex-direction: row;
+}
+#nav1 {
+   /* border: 2px solid black; */
+   width: 930px;
+   height: 220px;
+}
+#nav1 img{
+   width: 120px;
+   height: 120px;
+   margin: 4px;
+}
+#nav2 {
+   width: 88%;
+   display: flex;
+   flex-direction: row-reverse;
+   /* border: 2px solid black; */
+   justify-content: space-between;
+   align-items: center;
+   gap: 120px;
+   
+}
+#nav2 input {
+   width: 520px;
+   height: 42px;
+   padding: 22px;
+   border: 1px solid lightgray;
+   border-radius: 34px;
+}
+#nav3 {
+   width: 90%;
+   display: flex;
+   flex-direction: row-reverse;
+}
+#mainBox {
+   width: 100%;
+   height: 900px;
+   margin: 5px;
+   background-image: url(artman/G25.png);
+   background-position: right 55% bottom 25%;
+   background-repeat: no-repeat;
+   display: flex;
+   flex-direction: row;
+   align-content: center;
+}
+.box{
+   width: 50%;
+   
+   margin: 62px;
+}
+#image-head {
+   display: flex;
+   height: auto;
+}
+#text-head {
+   position: relative;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-content: center;
+   align-items: center;
+   padding-top: 30%;
+   /* border: solid black; */
+}
+#text-head h1 {
+   position: absolute;
+   top: 45%;
+   font-size: 64px;
+} 
+#text-head p {
+   position: absolute;
+   top: 35%;
+   font-size: 32px;
+}
+#btn-box{
+   width: 68%;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+}
+.btn1 {
+   background-color: #05a81b;
+   color: white;
+   font-size: 22px;
+   width: 210px;
+   height: 60px;
+   border: none;
+   border-radius: 26px;
+}
+.btn2 {
+   background-color: transparent;
+   font-size: 28px;
+   color: black;
+   width: 210px;
+   height: 60px;
+   border: none;
+   border-radius: 19px;
+}
+#Boxbox {
+   display: flex;
+   flex-direction: row-reverse;
+   width: 100%;
+   height: auto;
+}
+#section1 {
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+}
+.card {
+   width: 33%;
+   height: auto;
+   /* border: 2px solid black; */
+   margin: 19px 0 32px;
+   border-radius: 9px;
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-content: center;
+   align-items: center;
+}
+.card-one {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   align-content: center;
+}
+.card-two img {
+   
+}
+/* HTML: <div class="inner-curve"></div> */
+.inner-curve {
+   --r: 30px;  /* control the rounded part */
+   --s: 270px;  /* control the size of the cut */
+   --a: 15deg; /* control the depth of the curvature */
+   --p: 50%;   /* control the position */
+   
+   position: relative;
+   display: flex;
+
+   margin-top: -180px;
+   width: 100%;
+   height: 800px;
+   aspect-ratio: 3/2;
+   background: #05a81ba2;
+   z-index: -1;
+   
+   --_m:var(--r),#000 calc(100% - 1px),#0000;
+   --_d:(var(--s) + var(--r))*cos(var(--a));
+   mask:
+     radial-gradient(var(--r) at calc(var(--p) + var(--_d)) var(--_m)),
+     radial-gradient(var(--r) at calc(var(--p) - var(--_d)) var(--_m)),
+     radial-gradient(var(--s) at var(--p) calc(-1*sin(var(--a))*var(--s)),
+       #0000 100%,#000 calc(100% + 1px)) 0 calc(var(--r)*(1 - sin(var(--a)))) no-repeat,
+     linear-gradient(90deg,#000 calc(var(--p) - var(--_d)),#0000 0 calc(var(--p) + var(--_d)),#000 0);
+ }
+ #artman {
+   position: relative;
+   z-index: 2;
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   width: 100%;
+   margin: 29px auto;
+ }
+#inner-inner {
+   margin-top: 14%;
+   width: 100%;
+   height: auto;
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   /* border: 2px solid black; */
+}
+.cardshop {
+   width: 20%;
+   height: auto;
+   margin: 29px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   position: relative;
+   /* border: 2px solid black; */
+   border-radius: 19px;
+   background-color: aliceblue;
+}
+.cardshop img {
+   border-radius: 19px;
+}
+.cardshop h3 {
+   margin-top: 23px;  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /* topnoch with ai this is comment in index file */
+ .container {
+   position: relative;
+   width: 100%;
+ }
+ 
+ .top-div {
+   height: 900px;
+   background-color: #3498db;
+   position: relative;
+ }
+ 
+ .bottom-div {
+   height: 900px;
+   background-color: #2ecc71;
+   position: relative;
+ }
+ 
+ /* Create the notch */
+ .top-div::after {
+   content: '';
+   position: absolute;
+   bottom: -20px;
+   left: 50%;
+   transform: translateX(-50%);
+   width: 40px;
+   height: 20px;
+   background-color: #3498db;
+   clip-path: polygon(0 0, 100% 0, 50% 100%);
+ }
+ 
+ .bottom-div::before {
+   content: '';
+   position: absolute;
+   top: -20px;
+   left: 50%;
+   transform: translateX(-50%);
+   width: 40px;
+   height: 20px;
+   background-color: #2ecc71;
+   clip-path: polygon(50% 0, 100% 100%, 0 100%);
+ }
+ .top-div {
+   height: 100px;
+   background-color: #3498db;
+   clip-path: polygon(0 0, 100% 0, 100% 100%, calc(50% + 20px) 100%, 50% calc(100% - 20px), calc(50% - 20px) 100%, 0 100%);
+ }
+ 
+ .bottom-div {
+   height: 100px;
+   background-color: #2ecc71;
+   clip-path: polygon(0 0, calc(50% - 20px) 0, 50% 20px, calc(50% + 20px) 0, 100% 0, 100% 100%, 0 100%);
+ }
