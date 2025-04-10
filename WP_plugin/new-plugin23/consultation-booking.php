@@ -22,7 +22,6 @@ require_once CONS_BOOKING_PLUGIN_DIR . 'includes/class-shortcodes.php';
 
 require_once CONS_BOOKING_PLUGIN_DIR . 'includes/admin-section.php';
 
-
 // active plugin
 // first parameter is main dir plugin file and second parameter is callback , can be a function or method class this is class
 register_activation_hook(__FILE__ , ['Consultation_DB', 'activate']);
@@ -31,12 +30,42 @@ register_activation_hook(__FILE__ , ['Consultation_DB', 'activate']);
 register_deactivation_hook(__FILE__, ['Consultation_DB', 'deactivate']);
 
 
+
 // load file 
 add_action('plugin_loaded', 'consultation_booking_load_textdomain');
 function consultation_booking_load_textdomain () {
       load_plugin_textdomain('consultation-booking', false , dirname(plugin_basename(__FILE__))
                         . '/languages');
 }
+
+add_action('admin_menu', 'add_admin_menu');
+function add_admin_menu() {
+      add_menu_page(
+          'Setttings',
+          'Setttings',
+          'manage_options',
+          'my-plugin',
+          'render_admin_page',
+          'dashicons-admin-generic',
+          6
+      );
+
+      add_menu_page(
+            'Cloak',
+            'Cloak',
+            'manage_options',
+            'my-plugin2',
+            'render_admin_page2',
+            'dashicons-admin-generic',
+            7
+      );
+
+  }
+
+function render_admin_page(){
+      require_once CONS_BOOKING_PLUGIN_DIR . 'templates/manage-section.php';
+}
+
 
 // add style and scripts
 add_action('wp_enqueue_scripts', 'consultation_booking_scripts');
@@ -72,22 +101,3 @@ function consultation_booking_scripts (){
 }
 
 
-function submenu_add_main() {
-      add_menu_page(
-         'manage section',
-         'manage section',
-         'manage_option',
-         'manage_section',
-         'manage_section_user',
-               'dashicons-admin-multisite',
-               6
-            );
-         }
-         
-         function manage_section_user() {
-            // require_once CONS_BOOKING_PLUGIN_DIR . 'templates/manage-section.php';
-            
-            echo 'this is manage section';
-         }
-         
-   add_action('admin_menu', 'submenu_add_main');
