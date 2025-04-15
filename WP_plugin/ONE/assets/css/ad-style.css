@@ -1,0 +1,134 @@
+/* Admin Section Container */
+#box-admin {
+   background-color: #f8f9fa;
+   border-radius: 8px;
+   padding: 20px;
+   margin-bottom: 20px;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ }
+ 
+ /* Admin Heading */
+ #h-admin {
+   color: #343a40;
+   font-size: 24px;
+   margin: 0;
+   padding-bottom: 10px;
+   border-bottom: 1px solid #dee2e6;
+ }
+ 
+ /* Form Container */
+ #form-section {
+   max-width: 500px;
+   margin: 0 auto;
+   padding: 25px;
+   background-color: #fff;
+   border-radius: 8px;
+   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+ }
+ 
+ /* Form Input Boxes */
+ .box-form {
+   margin-bottom: 20px;
+ }
+ 
+ .box-form label {
+   display: block;
+   margin-bottom: 8px;
+   font-weight: 600;
+   color: #495057;
+ }
+ 
+ .box-form input {
+   width: 100%;
+   padding: 10px 15px;
+   border: 1px solid #ced4da;
+   border-radius: 4px;
+   font-size: 16px;
+   transition: border-color 0.3s;
+ }
+ 
+ .box-form input:focus {
+   border-color: #80bdff;
+   outline: 0;
+   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+ }
+ 
+ .box-form input::placeholder {
+   color: #6c757d;
+   opacity: 0.6;
+ }
+ 
+ /* Submit Button */
+ #form-section button {
+   background-color: #007bff;
+   color: white;
+   border: none;
+   padding: 12px 20px;
+   font-size: 16px;
+   border-radius: 4px;
+   cursor: pointer;
+   transition: background-color 0.3s;
+   width: 100%;
+ }
+ 
+ #form-section button:hover {
+   background-color: #0069d9;
+ }
+
+
+
+/* #h-admin {
+   font-size: 67px;
+   color: blueviolet;
+}
+#box-admin{
+   width: 80%;
+   height: 203px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-content: center;
+   text-align: center;
+   background-color: lightgray;
+   margin: 29px;
+   border: 2px solid purple;
+   box-shadow: 12px 12px 19px rgb(75, 74, 74);
+}
+#form-section {
+   width: 80%;
+   height: 410px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-content: center;
+   background-color: lightgray;
+   box-shadow: 12px 12px 19px rgb(75, 74, 74);
+   margin: 29px;
+   border: 2px solid purple;
+}
+#form-section  label {
+   color: purple;
+   font-size: 23px;
+   margin: 23px;
+}
+#form-section input {
+   width: 80%;
+   height: 48px;
+   margin: 0 auto;
+}
+#form-section  button {
+   width: 33%;
+   height: 63px;
+   font-size: 16px;
+   margin: 30px auto;
+   border-radius: 19px;
+   background-color: darkcyan;
+}
+.box-form {
+   width: 80%;
+   margin: 0 auto;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-content: center;
+} */
