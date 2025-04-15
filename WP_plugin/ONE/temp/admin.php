@@ -14,3 +14,4 @@
    </div>
       <button type="submit">Save Settings</button>
 </form>
+<?php echo do_shortcode('[hello]')?>

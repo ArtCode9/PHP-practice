@@ -1,0 +1,1 @@
+<h1 id="one_short">ONE SHORTCODE IS ADD WITH STYLE</h1>
