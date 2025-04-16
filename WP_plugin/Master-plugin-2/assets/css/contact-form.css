@@ -1,0 +1,66 @@
+.wp-master-contact-form-container {
+   max-width: 600px;
+   margin: 0 auto;
+   padding: 20px;
+   background: #f9f9f9;
+   border-radius: 8px;
+   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.wp-master-form .form-group {
+   margin-bottom: 20px;
+}
+
+.wp-master-form label {
+   display: block;
+   margin-bottom: 5px;
+   font-weight: 600;
+}
+
+.wp-master-form input[type="text"],
+.wp-master-form input[type="email"],
+.wp-master-form textarea {
+   width: 100%;
+   padding: 10px;
+   border: 1px solid #ddd;
+   border-radius: 4px;
+   font-size: 16px;
+}
+
+.wp-master-form textarea {
+   min-height: 150px;
+}
+
+.submit-button {
+   background: #0073aa;
+   color: white;
+   border: none;
+   padding: 12px 20px;
+   border-radius: 4px;
+   cursor: pointer;
+   font-size: 16px;
+   transition: background 0.3s;
+}
+
+.submit-button:hover {
+   background: #005177;
+}
+
+.form-messages {
+   margin-top: 15px;
+   padding: 10px;
+   border-radius: 4px;
+   display: none;
+}
+
+.form-messages.success {
+   background: #d4edda;
+   color: #155724;
+   display: block;
+}
+
+.form-messages.error {
+   background: #f8d7da;
+   color: #721c24;
+   display: block;
+}
