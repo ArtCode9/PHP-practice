@@ -12,6 +12,10 @@
    color: white;
    border-left: 2px solid black;
 }
+td {
+   align-content: center;
+   text-align: center;
+}
 /* #popup {
    display:none;
    width:800px;
@@ -60,9 +64,10 @@
    border: 1px solid #0e0202;
    box-shadow: 0 0 20px rgba(0,0,0,0.2);
    z-index: 10000;
-   max-width: 600px;
+   max-width: 900px;
    width: 90%;
-   border-radius: 5px;
+   text-align: center;
+   align-content: center;
 }
 
 .popup-overlay {
@@ -82,7 +87,8 @@
    right: 15px;
    font-size: 24px;
    cursor: pointer;
-   color: #666;
+   color: #fbf9f9;
+   background-color: black;
 }
 
 .ticket-icon {
