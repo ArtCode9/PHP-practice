@@ -39,7 +39,7 @@ function add_ticket_menu() {
 
 function filter_new_tickets() {
    global $wpdb;
-   $table_name = $wpdb->prefix . 'support_tickets';
+   $table_name = $wpdb->prefix . '_support_tickets';
    $tickets = $wpdb->get_results("SELECT * FROM $table_name WHERE status='new'");
    require_once PLUG_TICKET_DIR . 'templates/display.php';
    display_ticket_list($tickets);
@@ -47,7 +47,7 @@ function filter_new_tickets() {
 
 function filter_active_tickets() {
    global $wpdb;
-   $table_name = $wpdb->prefix . 'support_tickets';
+   $table_name = $wpdb->prefix . '_support_tickets';
    $tickets = $wpdb->get_results("SELECT * FROM $table_name WHERE status='active'");
    require_once PLUG_TICKET_DIR . 'templates/display.php';
    display_ticket_list($tickets);
@@ -55,7 +55,7 @@ function filter_active_tickets() {
 
 function filter_closed_tickets() {
    global $wpdb;
-   $table_name = $wpdb->prefix . 'support_tickets';
+   $table_name = $wpdb->prefix . '_support_tickets';
    $tickets = $wpdb->get_results("SELECT * FROM $table_name WHERE status='closed'");
    require_once PLUG_TICKET_DIR . 'templates/display.php';
    display_ticket_list($tickets);

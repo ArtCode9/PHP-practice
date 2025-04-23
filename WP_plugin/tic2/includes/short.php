@@ -4,7 +4,8 @@
 function registration_form_shortcode2() {
       ob_start();
       ?>
-       /* CSS برای فرم‌ها */
+      <style>
+        /* CSS برای فرم‌ها */
         .registration-form {
             background-color: #1F1F3A;
             padding: 20px;
@@ -105,6 +106,7 @@ function support_ticket_form_shortcode() {
    <form class="support-ticket-form" method="POST" enctype="multipart/form-data">
        <input type="text" name="full_name" placeholder="نام و نام خانوادگی" required>
        <input type="email" name="email" placeholder="آدرس ایمیل" required>
+       <input type="text" name="phone" placeholder="تلفن" required>
        <input type="text" name="domain" placeholder="آدرس دامنه" required>
        <input type="text" name="subject" placeholder="موضوع" required>
 
@@ -179,6 +181,7 @@ function handle_ticket_submission() {
                'ip_address' => $ip_address,
                'full_name' => sanitize_text_field($_POST['full_name']),
                'email' => sanitize_email($_POST['email']),
+               'phone' => sanitize_text_field($_POST['phone']),
                'domain' => sanitize_text_field($_POST['domain']),
                'subject' => sanitize_text_field($_POST['subject']),
                'priority' => sanitize_text_field($_POST['priority']),

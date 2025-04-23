@@ -56,16 +56,9 @@ function add_status_field_in_ticket_form() {
 add_action('support_ticket_form', 'add_status_field_in_ticket_form');
 
 
-?>
-    <script>
-    function showModal() {
-        document.getElementById('popup').style.display = 'block';
-    }
 
-    function hideModal() {
-        document.getElementById('popup').style.display = 'none';
-    }
-    </script>
-<?php
 
-?>
+
+
+add_action('admin_enqueue_scripts', 'add_pop_up_script');
+

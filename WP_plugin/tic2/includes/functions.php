@@ -1,5 +1,22 @@
 <?php 
 
+function add_pop_up_script (){
+    wp_enqueue_style(
+        'support-tickets',
+        PLUG_TICKET_URL . 'assets/css/admin-ui.css',
+        [],
+        PLUG_TICKET_VERSION
+    );
+
+    wp_enqueue_script(
+        'support-tickets',
+        PLUG_TICKET_URL . 'assets/js/script.js',
+        ['jquery'],
+        PLUG_TICKET_VERSION,
+        true
+    );
+};
+
 function create_support_ticket_table2() {
       global $wpdb;
       $table_name = $wpdb->prefix . '_support_tickets';
@@ -14,6 +31,7 @@ function create_support_ticket_table2() {
                   ip_address varchar(100) NOT NULL,
                   full_name tinytext NOT NULL,
                   email VARCHAR(100) NOT NULL,
+                  phone VARCHAR(25) NOT NULL,
                   domain VARCHAR(100) NOT NULL,
                   subject text NOT NULL,
                   priority varchar(20) DEFAULT 'low' NOT NULL,
@@ -38,39 +56,112 @@ function create_support_ticket_table2() {
 }
 
 function display_tickets_in_admin() {
-      global $wpdb;
+     /*  not working 1️⃣: 
+     global $wpdb;
       $table_name = $wpdb->prefix . '_support_tickets';
   
       // فیلتر بر اساس وضعیت
       $status_filter = isset($_GET['ticket_status']) ? sanitize_text_field($_GET['ticket_status']) : 'all';
-  
+    
       $query = "SELECT * FROM $table_name";
-      if ($status_filter !== 'all') {
-          $query .= " WHERE status = '$status_filter'";
+      // Only add WHERE clause if filtering for a specific status (not 'all')
+      if (in_array($status_filter, ['new', 'active', 'closed'])) {
+            $query .= $wpdb->prepare(" WHERE status = %s", $status_filter);
       }
-      $tickets = $wpdb->get_results($query);
+
+      $tickets = $wpdb->get_results($query); */
+
+      /* not working 2️⃣:
+      global $wpdb;
+
+    // 1. Ensure the table prefix is correct
+    $table_name = $wpdb->prefix . '_support_tickets'; // Removed underscore (_) if not part of your table name
+
+    // 2. Safely get the status filter (default: 'all')
+    $status_filter = isset($_GET['ticket_status']) ? sanitize_text_field($_GET['ticket_status']) : 'all';
+
+    // 3. Start building the query
+    $query = "SELECT * FROM {$table_name}";
+
+    // 4. Add WHERE clause only for valid statuses
+    if (in_array($status_filter, ['new', 'active', 'closed'], true)) { // `true` for strict type checking
+        $query .= $wpdb->prepare(" WHERE status = %s", $status_filter);
+    }
+
+    // 5. Execute & debug (temporarily add this for testing)
+    $tickets = $wpdb->get_results($query);
+
+    // 6. Check for database errors
+    if ($wpdb->last_error) {
+        wp_die('Database error: ' . esc_html($wpdb->last_error)); // Show error safely
+    }
+
+    // 7. Debug output (remove later)
+    echo '<pre>';
+    var_dump($tickets); // Check if data is returned
+    echo '</pre>'; */
+
   
-      echo '<h2>تیکت‌های دریافتی</h2>';
-      
-      // منوی فیلتر
-      echo '<form method="GET">';
-      echo '<select name="ticket_status">';
-      echo '<option value="all"' . ($status_filter === 'all' ? ' selected' : '') . '>همه تیکت‌ها</option>';
-      echo '<option value="new"' . ($status_filter === 'new' ? ' selected' : '') . '>تیکت‌های جدید</option>';
-      echo '<option value="active"' . ($status_filter === 'active' ? ' selected' : '') . '>تیکت‌های فعال</option>';
-      echo '<option value="closed"' . ($status_filter === 'closed' ? ' selected' : '') . '>تیکت‌های بسته شده</option>';
-      echo '</select>';
-      echo '<input type="submit" value="فیلتر" class="button">';
-      echo '</form>';
-  
+    global $wpdb;
+    
+    // 1. Correct table name (remove extra underscore if not needed)
+    $table_name = $wpdb->prefix . '_support_tickets'; // Changed from 'support_tickets'
+    
+    // 2. Get current admin URL without existing query args
+    $admin_url = admin_url('admin.php?page=support-tickets');
+    
+    // 3. Safely get the status filter
+    $status_filter = isset($_GET['ticket_status']) ? sanitize_text_field($_GET['ticket_status']) : 'all';
+    
+    // 4. Build base query
+    $query = "SELECT * FROM {$table_name}";
+    $where = array();
+    
+    // 5. Add status condition if needed
+    if (in_array($status_filter, ['new', 'active', 'closed'], true)) {
+        $where[] = $wpdb->prepare("status = %s", $status_filter);
+    }
+    
+    // 6. Combine WHERE clauses if any
+    if (!empty($where)) {
+        $query .= " WHERE " . implode(" AND ", $where);
+    }
+    
+    // 7. Add ordering
+    $query .= " ORDER BY created_at DESC";
+    
+    // 8. Execute query
+    $tickets = $wpdb->get_results($query);
+    
+    // Error handling
+    if ($wpdb->last_error) {
+        error_log('Database error: ' . $wpdb->last_error);
+        echo '<div class="error"><p>خطا در دریافت اطلاعات از پایگاه داده</p></div>';
+    }
+    
+    // Display filter form
+    echo '<h2>تیکت‌های دریافتی</h2>';
+    echo '<form method="GET" action="' . esc_url($admin_url) . '">';
+    echo '<input type="hidden" name="page" value="support-tickets">';
+    echo '<select name="ticket_status">';
+    echo '<option value="all"' . selected($status_filter, 'all', false) . '>همه تیکت‌ها</option>';
+    echo '<option value="new"' . selected($status_filter, 'new', false) . '>تیکت‌های جدید</option>';
+    echo '<option value="active"' . selected($status_filter, 'active', false) . '>تیکت‌های فعال</option>';
+    echo '<option value="closed"' . selected($status_filter, 'closed', false) . '>تیکت‌های بسته شده</option>';
+    echo '</select>';
+    echo '<input type="submit" value="فیلتر" class="button">';
+    echo '</form>';
+    echo '<br>';
+
       // شروع جدول
-      echo '<table class="widefat striped">';
+      echo '<table class="widefat striped" id="tableBox">';
       echo '<thead>';
       echo '<tr>';
       echo '<th>ID</th>';
       echo '<th>شماره پیگیری</th>';
       echo '<th>نام</th>';
       echo '<th>ایمیل</th>';
+      echo '<th>تلفن</th>';
       echo '<th>موضوع</th>';
       echo '<th>الویت</th>';
       echo '<th>وضعیت</th>';
@@ -90,20 +181,18 @@ function display_tickets_in_admin() {
               echo '<td>' . esc_html($ticket->tracking_code) . '</td>';
               echo '<td>' . esc_html($ticket->full_name) . '</td>';
               echo '<td>' . esc_html($ticket->email) . '</td>';
+              echo '<td>' . esc_html($ticket->phone) . '</td>';
               echo '<td>' . esc_html($ticket->subject) . '</td>';
               echo '<td>' . esc_html($ticket->priority) . '</td>';
               echo '<td>' . esc_html($ticket->status) . '</td>';
               echo '<td>' . esc_html($ticket->created_at) . '</td>';
-              echo '<td>' . esc_html($ticket->message) . '<a href="#popup" onclick="showModal()">Show Message</a>' . 
-              '
-                  <div id="popup" style="display:none; width:800px; padding:22px; font-size:33px; position:fixed; top:50%; left:50%; 
-                          transform:translate(-50%, -50%); background:tomato; padding:20px;
-                          border:1px solid #ccc; box-shadow:0 0 10px rgba(0,0,0,0.1);">                
-                          '. esc_html($ticket->message)/* in this part set get data from database on condition */ .' 
-                      <button onclick="hideModal()">close</button> </div>
-  
-              '
-              .'</td>';
+              echo '<td>' . esc_html($ticket->message) . 
+     '<a href="javascript:void(0)" onclick="showModal(\'popup-' . $ticket->id . '\')" style="font-size:33px; cursor:pointer;">🎫</a>' . 
+     '<div id="popup-' . $ticket->id . '" class="popup-modal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border:1px solid #ccc; z-index:1000;">' . 
+         esc_html($ticket->message) . 
+         '<button onclick="hideModal(\'popup-' . $ticket->id . '\')" style="margin-top:10px;">Close</button> 
+     </div>
+     </td>';
               echo '<td>' . esc_html($ticket->support_agent) . '</td>';
               echo '<td>
                   <form method="POST" style="display:inline;">
