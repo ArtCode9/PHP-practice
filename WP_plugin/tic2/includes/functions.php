@@ -153,6 +153,22 @@ function display_tickets_in_admin() {
     echo '</form>';
     echo '<br>';
 
+
+
+    // Add JavaScript for the popup
+    echo '<script>
+    function showModal(ticketId) {
+        document.getElementById("popup-overlay-" + ticketId).style.display = "block";
+        document.getElementById("popup-" + ticketId).style.display = "block";
+    }
+    
+    function hideModal(ticketId) {
+        document.getElementById("popup-overlay-" + ticketId).style.display = "none";
+        document.getElementById("popup-" + ticketId).style.display = "none";
+    }
+    </script>';
+
+
       // شروع جدول
       echo '<table class="widefat striped" id="tableBox">';
       echo '<thead>';
@@ -186,13 +202,18 @@ function display_tickets_in_admin() {
               echo '<td>' . esc_html($ticket->priority) . '</td>';
               echo '<td>' . esc_html($ticket->status) . '</td>';
               echo '<td>' . esc_html($ticket->created_at) . '</td>';
-              echo '<td>' . esc_html($ticket->message) . 
-     '<a href="javascript:void(0)" onclick="showModal(\'popup-' . $ticket->id . '\')" style="font-size:33px; cursor:pointer;">🎫</a>' . 
-     '<div id="popup-' . $ticket->id . '" class="popup-modal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border:1px solid #ccc; z-index:1000;">' . 
-         esc_html($ticket->message) . 
-         '<button onclick="hideModal(\'popup-' . $ticket->id . '\')" style="margin-top:10px;">Close</button> 
-     </div>
-     </td>';
+              echo '<td><a href="javascript:void(0)" onclick="showModal('
+               . $ticket->id . ')" style="font-size:33px;" title="View full message">🎫</a></td>';
+
+              // Popup HTML for this ticket
+            echo '<div class="popup-overlay" id="popup-overlay-' . $ticket->id . '"></div>';
+            echo '<div class="ticket-popup" id="popup-' . $ticket->id . '">';
+            echo '<h3>پیام تیکت #' . $ticket->id . '</h3>';
+            echo '<p>' . nl2br(esc_html($ticket->message)) . '</p>';
+            echo '<button onclick="hideModal(' . $ticket->id . ')">بستن</button>';
+            echo '</div>';
+
+
               echo '<td>' . esc_html($ticket->support_agent) . '</td>';
               echo '<td>
                   <form method="POST" style="display:inline;">
@@ -214,9 +235,6 @@ function display_tickets_in_admin() {
               </td>';
               echo '</tr>';
   
-  
-  
-  // =======================================================
           }
       } else {
           echo '<tr><td colspan="11" style="text-align: center;">تیکتی موجود نیست.</td></tr>';

@@ -7,7 +7,7 @@
    padding: 6px;
    height: 68px;
 }
-#popup {
+/* #popup {
    display:none;
    width:800px;
    padding:22px;
@@ -41,4 +41,50 @@
    height: 100%;
    background: rgba(0,0,0,0.5);
    z-index: 999;
+} */
+
+/* Popup Styling */
+.ticket-popup {
+   display: none;
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   background: #ef5007;
+   padding: 20px;
+   border: 1px solid #0e0202;
+   box-shadow: 0 0 20px rgba(0,0,0,0.2);
+   z-index: 10000;
+   max-width: 600px;
+   width: 90%;
+   border-radius: 5px;
+}
+
+.popup-overlay {
+   display: none;
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: rgba(0,0,0,0.5);
+   z-index: 9999;
+}
+
+.close-btn {
+   position: absolute;
+   top: 10px;
+   right: 15px;
+   font-size: 24px;
+   cursor: pointer;
+   color: #666;
+}
+
+.ticket-icon {
+   font-size: 20px;
+   cursor: pointer;
+   transition: transform 0.2s;
+}
+.ticket-icon:hover {
+   transform: scale(1.2);
 }

@@ -5,9 +5,9 @@
 function hideModal() {
    document.getElementById('popup').style.display = 'none';
 }
-
  */
 
+/* 
 // Show modal function
 function showModal(popupId) {
    // Create overlay if it doesn't exist
@@ -29,4 +29,7 @@ function showModal(popupId) {
 function hideModal(popupId) {
    document.getElementById('modal-overlay').style.display = 'none';
    document.getElementById(popupId).style.display = 'none';
-}
+} */
+
+
+   
