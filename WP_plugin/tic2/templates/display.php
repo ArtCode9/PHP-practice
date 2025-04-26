@@ -1,4 +1,5 @@
 <?php
+
 function display_ticket_list($tickets) {
     echo '<h2>تیکت‌های مربوطه</h2>';
     // شروع جدول

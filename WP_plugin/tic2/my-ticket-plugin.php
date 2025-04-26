@@ -28,6 +28,7 @@ require_once PLUG_TICKET_DIR . 'includes/admin.php';
 register_activation_hook(__FILE__ , 'create_support_ticket_table2');
 
 
+
 // register form [registration_form]
 add_shortcode('registration_form' , 'registration_form_shortcode2');
 // ticket form [support_ticket_form]
@@ -56,9 +57,4 @@ function add_status_field_in_ticket_form() {
 add_action('support_ticket_form', 'add_status_field_in_ticket_form');
 
 
-
-
-
-
 add_action('admin_enqueue_scripts', 'add_pop_up_script');
-

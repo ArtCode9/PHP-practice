@@ -1,18 +1,33 @@
 <?php
 
 function add_ticket_menu() {
-   add_menu_page(
+   global $wpdb;
+   $table_name = $wpdb->prefix . '_support_tickets';
+   
+   // Get count of new, unviewed tickets
+   $new_tickets_count = $wpdb->get_var(
+       $wpdb->prepare("SELECT COUNT(*) FROM $table_name WHERE status = %s AND viewed = %d", 'new', 0)
+   );
+
+
+       // Add menu with notification bubble
+       add_menu_page(
          'تیکت‌ها', 
-         'تیکت‌ها',
+         $new_tickets_count > 0 ? sprintf('تیکت‌ها <span class="update-plugins count-%d"><span class="plugin-count">%d</span></span>', $new_tickets_count, $new_tickets_count) : 'تیکت‌ها',
          'manage_options',
          'support-tickets',
-         'display_tickets_in_admin'
-         );
+         'display_tickets_in_admin',
+         'dashicons-tickets',
+         6
+       );
 
    add_submenu_page(
       'support-tickets',
       'تیکت‌های جدید',
-      'تیکت‌های جدید',
+      $new_tickets_count > 0 ? sprintf('تیکت‌های جدید <span class="update-plugins count-%d">
+                                       <span class="plugin-count">%d</span></span>',
+                                       $new_tickets_count, $new_tickets_count)
+      : 'تیکت‌های جدید',
       'manage_options',
       'new-tickets',
       'filter_new_tickets'
