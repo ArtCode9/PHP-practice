@@ -23,9 +23,13 @@ define('PLUG_TICKET_URL' , plugin_dir_url(__FILE__));
 require_once PLUG_TICKET_DIR . 'includes/functions.php';
 require_once PLUG_TICKET_DIR . 'includes/short.php';
 require_once PLUG_TICKET_DIR . 'includes/admin.php';
+require_once PLUG_TICKET_DIR . 'includes/ajax-handlers.php';
 
 
 register_activation_hook(__FILE__ , 'create_support_ticket_table2');
+
+add_action('wp_ajax_mark_ticket_viewed', 'mark_ticket_viewed_callback');
+add_action('wp_ajax_get_new_tickets_count', 'get_new_tickets_count_callback');
 
 
 

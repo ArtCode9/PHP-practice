@@ -40,6 +40,7 @@ function create_support_ticket_table2() {
                   response text DEFAULT NULL,
                   attachment varchar(255) DEFAULT NULL,
                   status varchar(20) DEFAULT 'new' NOT NULL,
+                  viewed tinyint(1) DEFAULT 0 NOT NULL,
                   created_at datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
                   updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
                   PRIMARY KEY (id)
@@ -52,6 +53,12 @@ function create_support_ticket_table2() {
               if(!empty($wpdb->last_error)) {
                   error_log('Error creating support_tickets table :' . $wpdb->last_error);
               }
+      } else {
+          // Check if 'viewed' column exists, if not add it
+          $column = $wpdb->get_results("SHOW COLUMNS FROM $table_name LIKE 'viewed'");
+          if (empty($column)) {
+              $wpdb->query("ALTER TABLE $table_name ADD viewed tinyint(1) DEFAULT 0 NOT NULL");
+          }
       }
 }
 
@@ -192,7 +199,11 @@ function display_tickets_in_admin() {
   
       if ($tickets) {
           foreach ($tickets as $ticket) {
-              echo '<tr>';
+              $row_class = '';
+              if ($ticket->status === 'new' && empty($ticket->response)) {
+                  $row_class = ' class="new-ticket-row"';
+              }
+              echo '<tr' . $row_class . '>';
               echo '<td>' . esc_html($ticket->id) . '</td>';
               echo '<td>' . esc_html($ticket->tracking_code) . '</td>';
               echo '<td>' . esc_html($ticket->full_name) . '</td>';
