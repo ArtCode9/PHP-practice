@@ -35,3 +35,34 @@ jQuery(document).ready(function($) {
        }
    });
 });
+
+jQuery(document).ready(function($) {
+   // اعتبارسنجی فرم
+   $('.scf-frontend-form form').on('submit', function(e) {
+       var isValid = true;
+       $(this).find('[required]').each(function() {
+           var $field = $(this);
+           var $group = $field.closest('.scf-form-group');
+           $group.find('.scf-error-message').remove();
+           
+           if ($field.val().trim() === '') {
+               $field.addClass('scf-error');
+               $group.append('<div class="scf-error-message">این فیلد الزامی است</div>');
+               isValid = false;
+           } else {
+               $field.removeClass('scf-error');
+           }
+       });
+       
+       if (!isValid) {
+           e.preventDefault();
+           $('.scf-frontend-form').find('.scf-alert.error').remove();
+           $('.scf-frontend-form').prepend(
+               '<div class="scf-alert error">لطفاً تمام فیلدهای ضروری را پر کنید.</div>'
+           );
+           $('html, body').animate({
+               scrollTop: $('.scf-frontend-form').offset().top - 100
+           }, 500);
+       }
+   });
+});

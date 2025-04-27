@@ -1,24 +1,37 @@
 <?php
 function scf_shortcode_handler($atts) {
-   ob_start(); // شروع بافر خروجی
+   ob_start();
    
-   // فقط برای کاربران لاگین شده
+   // بررسی لاگین بودن کاربر
    if (!is_user_logged_in()) {
-       return '<p>برای دسترسی به این بخش باید وارد سایت شوید.</p>';
+       return '<div class="scf-alert error">برای دسترسی به این بخش باید وارد سایت شوید.</div>';
    }
    
    // بررسی سطح دسترسی
    if (!current_user_can('manage_options')) {
-       return '<p>شما مجوز دسترسی به این بخش را ندارید.</p>';
+       return '<div class="scf-alert error">شما مجوز دسترسی به این بخش را ندارید.</div>';
    }
    
-   // دریافت پارامترهای شورتکد
+   // پردازش فرم ارسالی
+   if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['scf_frontend_submit'])) {
+       scf_process_frontend_form();
+   }
+   
+   // نمایش پیام‌ها
+   if (isset($_GET['scf_message'])) {
+       switch ($_GET['scf_message']) {
+           case 'added':
+               echo '<div class="scf-alert success">تماس جدید با موفقیت ثبت شد.</div>';
+               break;
+       }
+   }
+   
+   // نمایش محتوا
    $atts = shortcode_atts(array(
        'show_form' => 'yes',
        'show_list' => 'yes'
    ), $atts);
    
-   // نمایش فرم یا لیست بر اساس پارامترها
    if ($atts['show_form'] === 'yes') {
        scf_render_frontend_form();
    }
@@ -27,32 +40,52 @@ function scf_shortcode_handler($atts) {
        scf_render_frontend_list();
    }
    
-   return ob_get_clean(); // بازگرداندن محتوای بافر
+   return ob_get_clean();
+}
+
+function scf_process_frontend_form() {
+   global $wpdb;
+   $table_name = $wpdb->prefix . 'simple_contact_form';
+   
+   // بررسی nonce
+   if (!isset($_POST['scf_frontend_nonce']) || !wp_verify_nonce($_POST['scf_frontend_nonce'], 'scf_frontend_action')) {
+       echo '<div class="scf-alert error">خطای امنیتی رخ داده است.</div>';
+       return false;
+   }
+   
+   // اعتبارسنجی فیلدها
+   $name = isset($_POST['name']) ? sanitize_text_field($_POST['name']) : '';
+   $email = isset($_POST['email']) ? sanitize_email($_POST['email']) : '';
+   $phone = isset($_POST['phone']) ? sanitize_text_field($_POST['phone']) : '';
+   
+   if (empty($name) || empty($email) || empty($phone)) {
+       echo '<div class="scf-alert error">لطفاً تمام فیلدهای ضروری را پر کنید.</div>';
+       return false;
+   }
+   
+   // ذخیره در دیتابیس
+   $result = $wpdb->insert($table_name, array(
+       'name' => $name,
+       'email' => $email,
+       'phone' => $phone
+   ), array('%s', '%s', '%s'));
+   
+   if ($result === false) {
+       echo '<div class="scf-alert error">خطا در ذخیره اطلاعات: ' . $wpdb->last_error . '</div>';
+       return false;
+   }
+   
+   // ریدایرکت برای جلوگیری از ارسال مجدد فرم
+   wp_redirect(add_query_arg('scf_message', 'added', wp_get_referer()));
+   exit;
 }
 
 
 function scf_render_frontend_form() {
-   global $wpdb;
-   $table_name = $wpdb->prefix . 'simple_contact_form';
-   
-   // پردازش ارسال فرم
-   if (isset($_POST['scf_frontend_submit'])) {
-       $nonce = $_POST['scf_frontend_nonce'] ?? '';
-       
-       if (wp_verify_nonce($nonce, 'scf_frontend_action')) {
-           $data = array(
-               'name' => sanitize_text_field($_POST['name']),
-               'email' => sanitize_email($_POST['email']),
-               'phone' => sanitize_text_field($_POST['phone'])
-           );
-           
-           $wpdb->insert($table_name, $data);
-           
-           echo '<div class="scf-alert success">تماس با موفقیت ذخیره شد.</div>';
-       }
-   }
-   
-   // نمایش فرم
+   // مقادیر قبلی برای نمایش در صورت خطا
+   $name = isset($_POST['name']) ? esc_attr($_POST['name']) : '';
+   $email = isset($_POST['email']) ? esc_attr($_POST['email']) : '';
+   $phone = isset($_POST['phone']) ? esc_attr($_POST['phone']) : '';
    ?>
    <div class="scf-frontend-form">
        <h3>فرم تماس جدید</h3>
@@ -61,17 +94,17 @@ function scf_render_frontend_form() {
            
            <div class="scf-form-group">
                <label for="scf_name">نام کامل</label>
-               <input type="text" id="scf_name" name="name" required>
+               <input type="text" id="scf_name" name="name" value="<?php echo $name; ?>" required>
            </div>
            
            <div class="scf-form-group">
                <label for="scf_email">آدرس ایمیل</label>
-               <input type="email" id="scf_email" name="email" required>
+               <input type="email" id="scf_email" name="email" value="<?php echo $email; ?>" required>
            </div>
            
            <div class="scf-form-group">
                <label for="scf_phone">شماره تلفن</label>
-               <input type="tel" id="scf_phone" name="phone" required>
+               <input type="tel" id="scf_phone" name="phone" value="<?php echo $phone; ?>" required>
            </div>
            
            <button type="submit" name="scf_frontend_submit" class="scf-submit-btn">ذخیره اطلاعات</button>
@@ -82,7 +115,7 @@ function scf_render_frontend_form() {
 
 
 
-function scf_render_frontend_list() {
+/* function scf_render_frontend_list() {
    global $wpdb;
    $table_name = $wpdb->prefix . 'simple_contact_form';
    
@@ -196,6 +229,74 @@ function scf_render_frontend_list() {
                </tbody>
            </table>
        </div>
+   </div>
+   <?php
+} */
+
+
+function scf_render_frontend_list() {
+   global $wpdb;
+   $table_name = $wpdb->prefix . 'simple_contact_form';
+   
+   // ساخت کوئری پایه
+   $query = "SELECT * FROM $table_name WHERE 1=1";
+   $query_params = array();
+   
+   // اضافه کردن شرایط جستجو اگر وجود دارد
+   if (isset($_GET['scf_search']) && !empty($_GET['scf_search'])) {
+       $search_term = '%' . $wpdb->esc_like(sanitize_text_field($_GET['scf_search'])) . '%';
+       $query .= " AND (name LIKE %s OR email LIKE %s OR phone LIKE %s)";
+       $query_params = array_merge($query_params, array($search_term, $search_term, $search_term));
+   }
+   
+   $query .= " ORDER BY created_at DESC";
+   
+   // اجرای کوئری
+   if (!empty($query_params)) {
+       $contacts = $wpdb->get_results($wpdb->prepare($query, $query_params));
+   } else {
+       $contacts = $wpdb->get_results($query);
+   }
+   
+   // نمایش لیست
+   ?>
+   <div class="scf-contacts-table">
+       <?php if (empty($contacts)): ?>
+           <div class="scf-alert info">هیچ مخاطبی یافت نشد.</div>
+       <?php else: ?>
+           <table>
+               <thead>
+                   <tr>
+                       <th>نام</th>
+                       <th>ایمیل</th>
+                       <th>تلفن</th>
+                       <th>تاریخ ثبت</th>
+                       <th>عملیات</th>
+                   </tr>
+               </thead>
+               <tbody>
+                   <?php foreach ($contacts as $contact): ?>
+                       <tr>
+                           <td><?php echo esc_html($contact->name); ?></td>
+                           <td><?php echo esc_html($contact->email); ?></td>
+                           <td><?php echo esc_html($contact->phone); ?></td>
+                           <td><?php echo esc_html($contact->created_at); ?></td>
+                           <td class="scf-actions">
+                               <!-- دکمه‌های عملیات -->
+                               <a href="?page_id=<?php echo get_the_ID(); ?>&scf_action=delete&scf_id=<?php echo $contact->id; ?>&scf_nonce=<?php echo wp_create_nonce('scf_delete_' . $contact->id); ?>" 
+                                      class="scf-delete-btn" 
+                                      onclick="return confirm('آیا از حذف این مخاطب مطمئن هستید؟')">حذف</a>
+                                   <button class="scf-print-btn" onclick="window.open('<?php echo add_query_arg(array(
+                                       'scf_action' => 'print',
+                                       'scf_id' => $contact->id,
+                                       'scf_nonce' => wp_create_nonce('scf_print_' . $contact->id)
+                                   ), get_permalink()); ?>', '_blank')">پرینت</button>
+                           </td>
+                       </tr>
+                   <?php endforeach; ?>
+               </tbody>
+           </table>
+       <?php endif; ?>
    </div>
    <?php
 }
