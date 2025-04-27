@@ -1,0 +1,106 @@
+/* استایل‌های عمومی */
+.wrap {
+   max-width: 1200px;
+   margin: 0 auto;
+}
+
+.scf-list-header {
+   margin-bottom: 20px;
+}
+
+/* استایل جدول */
+.wp-list-table {
+   margin-top: 20px;
+}
+
+.wp-list-table th, .wp-list-table td {
+   vertical-align: middle;
+}
+
+/* دکمه‌ها */
+.button-link-delete {
+   color: #a00;
+}
+
+.button-link-delete:hover {
+   color: #dc3232;
+}
+
+/* فرم‌ها */
+.form-table th {
+   width: 200px;
+}
+
+/* صفحه پرینت */
+@media print {
+   body {
+       background: #fff;
+   }
+   
+   #wpadminbar, .update-nag, #adminmenumain, #wpfooter, .submit {
+       display: none !important;
+   }
+   
+   .scf-print-container {
+       margin: 0;
+       padding: 0;
+   }
+}
+
+
+/* استایل‌های جستجو و فیلتر */
+.search-form {
+   margin-top: 10px;
+   margin-bottom: 20px;
+}
+
+.scf-search-input {
+   padding: 5px 10px;
+   min-width: 250px;
+   height: 30px;
+   border-radius: 3px;
+   border: 1px solid #ddd;
+}
+
+.scf-filters {
+   background: #f5f5f5;
+   padding: 10px;
+   border-radius: 3px;
+   border: 1px solid #ddd;
+}
+
+.scf-date-filters {
+   display: inline-block;
+   margin-left: 15px;
+}
+
+.scf-date-filters label {
+   margin-right: 5px;
+   font-weight: 500;
+}
+
+.scf-date-filters input[type="date"] {
+   height: 30px;
+   padding: 3px 8px;
+   border-radius: 3px;
+   border: 1px solid #ddd;
+   margin-right: 15px;
+}
+
+/* واکنشگرایی */
+@media (max-width: 1200px) {
+   .scf-filters {
+       flex-direction: column;
+       align-items: flex-start;
+   }
+   
+   .scf-date-filters {
+       margin-left: 0;
+       margin-top: 10px;
+   }
+   
+   .scf-search-input {
+       width: 100%;
+       margin-bottom: 10px;
+   }
+}
