@@ -110,7 +110,7 @@ function support_ticket_form_shortcode() {
        <input type="text" name="domain" placeholder="آدرس دامنه" required>
        <input type="text" name="subject" placeholder="موضوع" required>
 
-       <label for="priority">الویت:</label>
+       <label for="priority" style="color: red;">الویت:</label>
        <select name="priority" required>
            <option value="low">کم</option>
            <option value="medium">متوسط</option>

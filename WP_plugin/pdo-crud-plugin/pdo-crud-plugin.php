@@ -30,10 +30,18 @@ register_deactivation_hook(__FILE__, 'pdo_crud_deactivate');
 function pdo_crud_init() {
    // Create admin menu
    add_action('admin_menu', 'pdo_crud_admin_menu');
+
+   // Register shortcode
+   add_shortcode('pdo_crud_form', 'pdo_crud_frontend_form_shortcode');
 }
 add_action('plugins_loaded', 'pdo_crud_init');
 
 
+
+
+
+
+//======================================================
 //  map for this plugin
 /* 
 PDO CRUD Plugin Mind Map
