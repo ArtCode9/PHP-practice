@@ -179,6 +179,7 @@ function scf_print_contact($id) {
 // افزودن استایل‌ها و اسکریپت‌های مدیریتی
 add_action('admin_enqueue_scripts', 'scf_admin_assets');
 
+
 function scf_admin_assets($hook) {
     if ($hook !== 'toplevel_page_simple-contact-form') {
         return;
