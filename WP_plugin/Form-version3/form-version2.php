@@ -584,3 +584,4 @@ class Teacher_Application_Form {
 }
 
 new Teacher_Application_Form();
+

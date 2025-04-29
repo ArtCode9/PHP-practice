@@ -1,0 +1,127 @@
+Teacher_Application_Form
+├── Properties
+│   └── $table_name (private)
+│
+├── Constructor (__construct)
+│   ├── Sets table name with WordPress prefix
+│   ├── Registers activation hook (create_table)
+│   ├── Registers shortcodes:
+│   │   ├── teacher_application_form (render_form)
+│   │   └── teacher_applications_list (render_applications_list)
+│   ├── Sets up form processing actions:
+│   │   ├── submit_teacher_application (process_form)
+│   │   └── AJAX handlers (get_application_details, get_teacher_application)
+│   └── Enqueues assets (enqueue_assets)
+│
+├── Database Operations
+│   ├── create_table()
+│   │   └── Creates DB table with fields:
+│   │       ├── Personal info fields (name, family, national ID, etc.)
+│   │       ├── Language teaching capabilities
+│   │       ├── Education records
+│   │       ├── Application metadata (date, status)
+│   │       └── Primary key (id)
+│   │
+│   ├── process_form()
+│   │   ├── Validates nonce
+│   │   ├── Sanitizes all input data
+│   │   ├── Serializes complex fields (languages, education)
+│   │   ├── Inserts into database
+│   │   └── Sends notification email
+│   │
+│   └── Data Retrieval
+│       ├── get_teacher_application() [AJAX]
+│       └── get_application_details() [AJAX]
+│
+├── Form Rendering
+│   ├── render_form()
+│   │   ├── Personal information section
+│   │   ├── Language capabilities matrix (English/French/German/Turkish)
+│   │   ├── Education history (dynamic fields)
+│   │   ├── Certificates section (dynamic fields)
+│   │   └── Form submission handling
+│   │
+│   └── render_applications_list()
+│       ├── Admin-only access check
+│       ├── Displays paginated table
+│       ├── Status badges (pending/approved/rejected)
+│       └── Print functionality
+│
+├── Helper Methods
+│   ├── get_language_name() - Translates language codes to Persian
+│   ├── get_status_label() - Translates status codes
+│   ├── prepare_languages_data() - Structures language capabilities
+│   ├── prepare_education_data() - Formats education history
+│   ├── send_notification_email() - Sends admin alerts
+│   ├── display_messages() - Shows form feedback
+│   └── redirect_with_message() - Handles form redirects
+│
+└── Frontend Integration
+    ├── enqueue_assets()
+    │   ├── CSS styling
+    │   ├── JavaScript handlers
+    │   └── Localizes AJAX URLs/nonce
+    │
+    ├── Shortcodes
+    │   ├── [teacher_application_form]
+    │   └── [teacher_applications_list]
+    │
+    └── AJAX Endpoints
+        ├── get_teacher_application
+        └── get_application_details
+
+================================================================
+Key Features Breakdown:
+
+1. Database Structure:
+
+    Comprehensive teacher profile storage
+
+    Multi-language teaching capabilities
+
+    Education/certification tracking
+
+    Application status management
+
+2. Form System:
+
+    Multi-section form with validation
+
+    Dynamic field addition (education/certificates)
+
+    Secure nonce protection
+
+    Responsive design ready
+
+3. Admin Interface:
+
+    Application management table
+
+    Detailed record viewing
+
+    Print-friendly templates
+
+    Status filtering capabilities
+
+4. Security:
+
+    Input sanitization
+
+    Capability checks
+
+    Nonce verification
+
+    AJAX security
+
+5. Internationalization:
+
+    Persian language support
+
+    RTL compatibility
+
+    Localized date formatting
+
+The system provides complete lifecycle management for 
+teacher applications from submission through admin review,
+ with robust data handling and presentation layers.
+
