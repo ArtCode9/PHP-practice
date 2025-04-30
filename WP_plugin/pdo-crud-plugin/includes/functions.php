@@ -171,7 +171,7 @@ echo '<style>
     ?>
     <div class="pdo-crud-frontend-form">
         <h2><?php echo $contact ? 'Edit Contact' : 'Add New Contact'; ?></h2>
-        <form method="post" action="">
+        <form method="post" action="functions.php">
             <input type="hidden" name="pdo_crud_frontend_action" value="<?php echo $contact ? 'update' : 'create'; ?>">
             <?php wp_nonce_field('pdo_crud_frontend_nonce', 'pdo_crud_nonce'); ?>
             <?php if ($contact): ?>
