@@ -1,5 +1,4 @@
 <?php
-    
 /* 
 Plugin Name: My First Plugin
 Plugin URI:  https://example.com
