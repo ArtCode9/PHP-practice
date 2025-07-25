@@ -13,7 +13,7 @@
 defined('ABSPATH') || exit;
 
 
-
+// check this code for next week
 define('PLUG_TICKET_VERSION' , '1.0.0');
 define('PLUG_TICKET_DIR' , plugin_dir_path(__FILE__));
 define('PLUG_TICKET_URL' , plugin_dir_url(__FILE__));
